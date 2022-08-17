@@ -1,0 +1,163 @@
+.profilePageWrapper
+{
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.profileCard
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width:80%;
+    position: relative;
+}
+.profileHeader
+{
+    background: linear-gradient(to right, rgb(130, 58, 255),rgb(199, 166, 255));
+    width: 100%;
+    height:150px;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+}
+.profileBody
+{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 0 3%;
+    
+}
+.avatar
+{
+    width:75px;
+    height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgb(0, 0, 0);
+    color: #fff;
+    font-size: 20px;
+    font-weight: 600;
+    border: 4px solid rgb(208, 208, 208);
+    border-radius: 50%;
+    transform: translateY(-30px);
+
+}
+.profileFormInputWrapper
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 100%;
+    min-height: 50px;
+    margin: 10px 0;
+    position: relative;
+}
+.profileFormInputLabel
+{
+    font-size: 16px;
+    color: #444444;
+    text-transform: capitalize;
+}
+.mobileLabel
+{
+    font-size: 30px;
+    display: none;
+}
+.profileFormInput
+{
+    width: 70%;
+    height: 100%;
+    padding: 1.5%;
+    border-radius: 5px;
+}
+.profileFormInput:focus
+{
+    outline: none;
+}
+.passwordIcon
+{
+    font-size: 25px;
+    position: absolute;
+    right: 1%;
+    top: 2px;
+    cursor: pointer;
+}
+
+.profileFormInputWrapper button
+{
+    background: #111;
+    color: #fff;
+    transition: 0.4s ease;
+}
+.profileFormInputWrapper button span
+{
+    
+    margin-right: 14px;
+}
+@media screen and (max-width:800px) {
+    
+    .profileCard
+    {
+        width: 95%;
+        margin-left: 2.5%;
+    }
+    .profileHeader
+    {
+        height: 100px;
+    }
+    .profileFormInputWrapper 
+    {
+        border: 2px solid #111;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        border-radius: 5px;
+        padding: 1%;
+        height: 60px;
+    }
+
+    .profileFormInputWrapper:last-of-type
+    {
+        border: none;
+    }
+    .profileFormInput
+    {
+        border: transparent;
+        flex: 1;
+    }
+ 
+
+    .desktopLabel
+    {
+        display: none;
+    }
+    .mobileLabel
+    {
+        display: inline;
+        border-right: 1px solid gray;       
+        margin-right: 10px; 
+        padding: 0 10px;
+    }
+    .mobileLabel svg
+    {
+        transform: translateY(-3px);
+    }
+    .passwordIcon
+    {
+        right: 2%;
+    }
+    .profileFormInputWrapper button
+    {
+        width: 100%;
+        height: 50px;
+    }
+}

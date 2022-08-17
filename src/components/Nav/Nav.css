@@ -1,0 +1,198 @@
+.mobileMenu
+{
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2vh 2vw;
+    width: 100vw;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 1.95px 2.6px;
+}
+.mobileNavLogo
+{
+    width: 30vw;
+    height: auto;
+}
+.hamburgerMenu
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    padding: 10px;
+    /* position: fixed; */
+    right: 10px;
+    top: 10px;
+    font-size: 30px;
+    background: #111;
+    color: #fff;
+}
+.navBar
+{
+    position: fixed;
+    width: var(--nav-width);
+    background: #e5e5e5;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    height: 100vh;
+    padding: 30px 0 30px 2vw;
+    left: 0;
+    transition: 0.4s ease-in-out;
+    z-index: 9999;
+}
+.navBar.open
+{
+    left: 0;
+    top: 0;
+    transition: 0.4s ease-in-out;
+}
+
+
+.navLogo
+{
+    width: 50%;
+    margin: 0;
+}
+
+.navTitle
+{
+    font-family: 'Outfit',sans-serif;
+    text-transform: uppercase;
+    font-weight: 400;
+    padding: 0;
+    letter-spacing: 6%;
+    color: #626262;
+}
+.navMenu
+{
+    /* padding-left: 20px; */
+    font-family: 'Outfit',sans-serif;
+    font-weight: 400;
+     display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+}
+.navItem
+{
+    margin: 6px 0;
+    font-size: 15px;
+    text-decoration: none;
+    color: #777777; 
+    transition: 0.4s ease;
+    display: flex;
+    align-items: center;
+}
+.navItem>svg
+{
+    margin-right: 6px;
+}
+.navItem:hover,.active
+{
+    color: #111;font-weight: 800;
+}
+.navBottom
+{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+ 
+   position: absolute;
+   bottom: 5%;
+  
+}
+.profileDiv
+{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+.profileDetailWrapper
+{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin: 10px 0;width: 100%;
+}
+.profileDetailLeft
+{
+    display: flex;
+}
+.profileMoreBtn
+{
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.profileImg
+{
+    width: 50px;
+    height: 50px;
+
+}
+.profileImg>img
+{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 50px;
+}
+
+.profileDetail
+{
+    
+    margin-left: 12px;
+}
+.username
+{
+    font-weight: 800;
+    font-size: 110%;
+}
+.designation
+{
+    font-size: 80%;
+    color: #9C9C9C;
+}
+.profileLogOut
+{
+    background: #494949;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 2px solid #494949;
+    transition: 0.4s ease;
+}
+.profileLogOut:hover
+{
+    background: transparent;
+    color: #494949;
+}
+.profileLogOut>span
+{
+    margin-left: 6px;
+
+}
+
+@media screen and (max-width:800px) {
+    .navBar
+    {
+        left: -200%;
+    }
+    .mobileMenu
+    {
+        display: flex;
+    }
+    .navItem
+    {
+        margin: 4px 0;
+    }
+    .profileDiv
+    {
+        width: 90%;
+    }
+}

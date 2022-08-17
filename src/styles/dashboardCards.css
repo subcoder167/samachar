@@ -1,0 +1,116 @@
+ .dashboardCard
+ {
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    padding: 20px;
+    border-radius: 10px;
+ }
+ .cardTop,.cardDetail
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+   
+}
+.cardDetail
+{
+    justify-content: flex-start;
+}
+.cardDetailValue
+{
+    margin-left: 10px;
+}
+.cardDetailsWrapper
+{
+    margin: 20px auto;
+}
+.dashboardCardWrapper
+{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+.dashboardCard .completeBtn
+{
+    color: #4DB29A;
+    border: 1px solid #4DB29A;
+    padding:6px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    min-width: 75px;
+    text-align: center;
+    transition: 0.4s ease;
+}
+.dashboardCard
+{
+    transform: scale(0.96);
+}
+.dashboardCard .completeBtn:hover,.trialCompleteBtn
+{
+    color: #fff;
+    background: #4DB29A;
+}
+.Id
+{
+    color: #2287E3;
+    font-size: 18px;
+    font-weight: 600;
+}
+.Id>span
+{
+    color: #000;
+    font-family: 'Poppins',sans-serif;
+    font-weight: 600;
+}
+.cardDetailParameter
+{
+    font-weight: 800;
+}
+.cardDetailValue
+{
+    font-weight: 600;
+    text-align: left;
+
+}
+.cardBottom
+{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.cardBottomIcon
+{
+    background: #2287E3;
+    color: #fff;
+    border: 2px solid #2287E3;
+    font-size: 18px;
+    border-radius: 8px;
+    transition: 0.4s ease;
+    cursor: pointer;
+    
+}
+.viewIcon
+{
+    padding: 2px 6px;
+    font-size: 20px;
+    margin: 0 6px;
+    font-weight: 600;
+}
+.editBtn
+{
+    padding: 3px 30px;
+}
+.cardBottomIcon:hover
+{
+    background: transparent;
+    color: #2287E3;
+}
+
+
+@media screen and (max-width:600px) {
+    .dashboardCard
+    {
+        width: 95%;
+    }
+    
+}

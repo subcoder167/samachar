@@ -1,0 +1,101 @@
+.dashboardTable
+{
+  width: 100%;  
+}
+
+.tableHeader
+{
+  padding: 20px 0;
+  border-bottom: 1px solid #000;
+}
+
+
+.centerTh
+{
+  text-align: center;
+}
+.dashboardTable>tr
+{
+  padding: 14px 0;
+  position: relative;
+}
+.dashboardTable td
+{
+  border-bottom: transparent;
+
+}
+.ant-table-cell
+{
+  text-transform: capitalize;
+}
+.emailTd
+{
+  text-transform:none;
+}
+.colTd
+{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.boldTd
+{
+  font-weight: 600;
+  font-size: 14px;
+}
+.thinTd
+{
+  font-weight: 600;
+  font-size: 80%;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.projectTitle
+{
+  width: 17%;
+  word-wrap: break-word;
+}
+.actionBtnWrapper
+{
+  display: flex;
+}
+.actionBtn
+{
+  padding:6px 20px;
+  border-radius: 20px;
+  background: #007bff;
+  text-align: center;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin: 0 6px;
+  cursor: pointer;
+}
+.successAction
+{
+  background: rgb(34, 215, 63,0.25);
+  color: #22D73F;
+}
+
+@media screen and (max-width:800px) {
+
+    .dashboardTable td
+    {
+      min-width: 120px ;
+    }
+    .colTd
+    {
+      justify-content: flex-start;
+  
+    }
+    .boldTd
+    {
+      font-size:14px ;
+    }
+    .thinTd
+    {
+      font-size: 60%;
+    }
+  }
+

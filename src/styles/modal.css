@@ -1,0 +1,55 @@
+.confirmModalWrapper,.confirmModalDetails
+{
+    justify-content: center !important;
+    align-items: center !important;
+}
+.confirmModal
+{
+    height:50vh !important;
+    border-radius: 20px ;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+   
+}
+.confirmModalDetails
+{
+    display: flex;
+    margin-top: 20px;
+    font-weight: 400;
+}
+
+
+.confirmModalButtonWrapper
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.confirmModalBtn
+{
+    font-size: 20px;
+    padding: 12px 30px;
+    border: 2px solid #000;
+    border-radius: 5px;
+    background: #000;
+    color: #fff;
+    cursor: pointer;
+    margin: 0 10px;
+    transition: 0.4s ease;
+}
+.confirmModalBtn:hover
+{
+background: transparent;
+color: #000;
+}
+.successBtn
+{
+    background: rgb(255, 48, 66);
+    border: 2px solid rgb(255, 48, 66);
+}
+.successBtn:hover
+{
+    color: rgb(255, 48, 66);
+}

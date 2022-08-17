@@ -1,0 +1,151 @@
+.metaProfileDetailWrapper
+{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-left: 2.5%;
+    margin-top: 50px;
+}
+.metaProfileSection
+{
+    border-top: 2px dashed #00000055;
+    padding: 20px 0;
+    width: 90%;
+}
+.metaProfileSectionTitle
+{
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+}
+
+
+.metaProfileTop
+{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+}
+
+.editDiv
+{
+    font-size: 20px;
+    text-decoration: none;
+    color: #111;
+}
+
+.metaProfileImage
+{
+    width: 100px;
+    height: 100px;
+}
+.metaProfileImage>img
+{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+.metaProfileDetail
+{
+    margin-left: 12px;
+}
+.metaProfileName
+{
+    font-size: 140%;
+    font-weight: 600;
+}
+
+.metaProfileOverviewDiv
+{
+    width: 90%;
+}
+
+.metaProfileSkillsDiv
+{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+.metaProfileSkill
+{
+    font-size: 15px;
+    padding: 6px 20px;
+    font-weight: 600;
+    margin:5px;
+    background: #e5e5e5;
+    border-radius: 25px;
+}
+
+.metaProfileOtherDetails
+{
+    display: flex;
+    flex-wrap: wrap;
+}
+.metaBiographySection
+{
+    margin: 50px 0;
+}
+.metaBiographySection
+{
+    padding-left: 2.5%;
+}
+
+.metaProfileDetailDivWrapper
+{
+    margin: 10px;
+}
+.metaBiographyDiv
+{
+    margin: 20px 0;
+}
+.metaBiographyTitle
+{
+    font-weight: 600;
+}
+.metaBiographyValue
+{
+    font-size: 120%;
+}
+.metaBiographyPara
+{
+    width: 60%;
+}
+
+
+
+@media screen and (max-width:600px) {
+    .metaProfileSection
+    {
+        width: 95%;
+    }
+    .metaBiographyPara
+    {
+        width: 98%;
+    }
+}
+
+.submitBtn
+{
+    background: #111;
+    color: #fff;
+    border: 2px solid #111;
+    padding: 12px 40px;
+    border-radius: 5px;
+    font-size: 110%;
+    transition: 0.4s ease;
+}
+
+.submitBtn:hover
+{
+    background: transparent;
+    color: #111;
+}
+.metaProfileSection input
+{
+    border: transparent;
+}
