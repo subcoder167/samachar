@@ -4,7 +4,7 @@ import './Login.css'
 import axios from 'axios';
 import api from '../../api/api';
 import {useSelector,useDispatch } from 'react-redux'
-import { adminLogin } from '../../redux/actions/adminLogin';
+import { login } from '../../redux/actions/login';
 import Spinner from 'react-bootstrap/Spinner'
 import 'bootstrap/dist/css/bootstrap.min.css';
 const Login = () => {
@@ -22,7 +22,7 @@ const Login = () => {
       {
           e.preventDefault();
           var formdata= new FormData(e.target)          
-          dispatch(adminLogin(formdata.get('email'),formdata.get('password')))
+          dispatch(login(formdata.get('email'),formdata.get('password')))
           setTrial(true)
       }
 

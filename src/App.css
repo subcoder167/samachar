@@ -149,7 +149,17 @@
   max-width: 98vw !important;
 
 }
+.errorMessage
+{
+    font-family: 'Montserrat',sans-serif;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: rgb(253, 98, 98);
+    /* display: none; */
+    text-align: center;
+    font-weight: 600;
 
+}
 
 @media screen and (max-width:800px) {
 
@@ -190,3 +200,5 @@
   }
  
 }
+
+

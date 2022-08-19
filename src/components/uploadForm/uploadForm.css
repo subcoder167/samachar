@@ -1,0 +1,58 @@
+.uploadFormRow
+{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.uploadFormDiv
+{
+    display: flex !important;
+    align-items: center;
+    justify-content: flex-start;
+    min-width: 250px;
+    margin: 10px;
+}
+
+.uploadFormDiv label
+{
+    width: 100px;
+}
+.uploadFormInput
+{
+    flex: 1;
+    height: 100%;
+    padding: 1.5%;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+.uploadFormRow button
+{
+    min-width: 250px;
+    padding: 12px 20px;
+    background: #111;
+    border: 2px solid #111;
+    border-radius: 5px;
+}
+.uploadFormRow button:hover
+{
+    color: #111;
+    background: transparent;
+
+}
+@media screen and (max-width: 768px) {
+    .uploadForm
+    {
+        max-width: 90vw;
+    }
+    .uploadFormRow
+    {
+        flex-direction: column;
+    }
+    .uploadFormDiv
+    {
+        width: 100%;
+    }
+}

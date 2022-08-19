@@ -17,6 +17,7 @@ import Main from '../pages/Main';
 import DemoForm from '../pages/DemoForm'
 import MetaExpertProfileEdit from '../components/metaExpert/MetaExpertProfileEdit';
 import Profile from '../components/Profile/Profile';
+import UploadForm from '../components/uploadForm/UploadForm';
 const RoutesPath = () => {
   return (
      <>
@@ -25,11 +26,9 @@ const RoutesPath = () => {
       <Route path='Login' element={<Login/>}/>
       <Route path='Register' element={<Register/>}/>
         <Route path="dashboard" element={<Main/>}>
-            <Route path="" element={<Empanelments/>}/>
-            <Route path="metaExperts" element={<MetaExpert/>}/>
-              <Route path="metaExperts/:id" element={<MetaExpertProfile/>}/>
-              <Route path="metaExperts/edit/:id" element={<MetaExpertProfileEdit/>}/>
-            <Route path="experts" element={<AntTable/>}/>
+            <Route path="" element={<UploadForm/>}/>
+            <Route path="upload" element={<UploadForm/>}/>
+            {/* <Route path="experts" element={<AntTable/>}/>
             <Route path="clients" />
             <Route path="customers" />
             <Route path="projects" />
@@ -38,7 +37,7 @@ const RoutesPath = () => {
             <Route path="edits" />
             <Route path="agendas" />
             <Route path="questions" />
-            <Route path="empanelments"element={<Empanelments/>} />
+            <Route path="empanelments"element={<Empanelments/>} /> */}
             <Route path="profile" element={<Profile/>} />
         </Route>
       </Routes>

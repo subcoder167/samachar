@@ -21,3 +21,4 @@ export const Authorization=(config)=>
   config.headers.Authorization=`Bearer ${localStorage.getItem('access')}`
   return config
 }
+

@@ -4,7 +4,7 @@ import './Login.css'
 import axios from 'axios';
 import api from '../../api/api';
 import {useSelector,useDispatch } from 'react-redux'
-import { adminLogin } from '../../redux/actions/adminLogin';
+import { login } from '../../redux/actions/login';
 import Spinner from 'react-bootstrap/Spinner'
 import 'bootstrap/dist/css/bootstrap.min.css';
 const Login = () => {
@@ -12,17 +12,17 @@ const Login = () => {
     const [trial, setTrial] = useState(false);
     const [path,setPath]=useState('');
 
-    const logged= useSelector(state=>state.adminLogin)
+    const logged= useSelector(state=>state.login)
     const dispatch=useDispatch()
     const errorMessage= useRef()
     const loginBtn= useRef()
     const navigate = useNavigate();
 
-    function handleLogin(e)
+    function handleRegister(e)
       {
           e.preventDefault();
           var formdata= new FormData(e.target)          
-          dispatch(adminLogin(formdata.get('email'),formdata.get('password')))
+          dispatch(login(formdata.get('email'),formdata.get('password')))
           setTrial(true)
       }
 
@@ -48,7 +48,7 @@ const Login = () => {
     
   return (
     <div className="loginFormWrapper">
-        <form className='adminLoginFormWrapper' onSubmit={(e)=>handleLogin(e)}>
+        <form className='adminLoginFormWrapper' onSubmit={(e)=>handleRegister(e)}>
           
           <div className="formInputWrapper">
 

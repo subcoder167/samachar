@@ -1,12 +1,15 @@
 import { combineReducers } from "redux";
 
-import adminLoginReducer from "./adminLoginReducer";
+import loginReducer from "./loginReducer";
 import checkLogged from "./login";
+import profileReducer from "./profileReducer";
+
 
 
 var reducers= combineReducers(
-{    adminLogin:adminLoginReducer,
-     logged:checkLogged
+{    login:loginReducer,
+     logged:checkLogged,
+     profile:profileReducer
 }
 )
 

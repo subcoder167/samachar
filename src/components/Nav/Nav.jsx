@@ -13,7 +13,7 @@ import {HiOutlineMenuAlt3} from 'react-icons/hi'
 import './Nav.css'
 import logo from '../../assets/images/logo.png'
 import { checkLogin, getUserData } from '../../redux/actions/login'
-import { adminLogout } from '../../redux/actions/adminLogin'
+import { logout } from '../../redux/actions/login'
 
 
 
@@ -59,7 +59,7 @@ const Nav = () => {
 
 const handleLogout=()=>
 {
-  dispatch(adminLogout())
+  dispatch(logout())
   navigate('/');
   localStorage.clear()
 }
@@ -80,39 +80,17 @@ const handleLogout=()=>
           Menu
         </div> */}
         <div className="navMenu">
-          {/* <NavLink to="metaExperts" className="navItem" onClick={toggleNav}>
-           <FaUser/> Meta Expert
-          </NavLink>
-          <NavLink to="experts" className="navItem" onClick={toggleNav}>
-            <ImUsers/>Experts
-          </NavLink>
-          <NavLink to="clients" className="navItem" onClick={toggleNav}>
-            <ImLocation/>Clients
-          </NavLink>
-          <NavLink to="customers" className="navItem" onClick={toggleNav}>
-           <FiUsers/> Customers
-          </NavLink>
-          <NavLink to="projects" className="navItem" onClick={toggleNav}>
-            <TiTickOutline/>Projects
-          </NavLink>
-          <NavLink to="calls" className="navItem" onClick={toggleNav}>
-          <FaUserShield/> Calls
-          </NavLink> */}
+          
           <NavLink to="/dashboard/profile" className="navItem" onClick={toggleNav}>
           <ImUserPlus/> Profile
           </NavLink>
-          <NavLink to="unpublishedEdits" className="navItem" onClick={toggleNav}>
-          <FiEdit/> Unpublished Edits
+          <NavLink to="upload" className="navItem" onClick={toggleNav}>
+          <FiEdit/>Upload
           </NavLink>
           <NavLink to="agendas" className="navItem" onClick={toggleNav}>
           <FaEquals/>Agendas
           </NavLink>
-          {/* <NavLink to="questions" className="navItem" onClick={toggleNav}>
-           <BsPatchQuestionFill/> Questions
-          </NavLink>
-          <NavLink to="empanelments" className="navItem" onClick={toggleNav}>
-           <FaDownload/> Empanelments
-          </NavLink> */}
+        
         </div>
         </div>
         <div className="navBottom">
