@@ -12,7 +12,7 @@ const Login = () => {
     const [trial, setTrial] = useState(false);
     const [path,setPath]=useState('');
 
-    const logged= useSelector(state=>state.adminLogin)
+    const logged= useSelector(state=>state.login)
     const dispatch=useDispatch()
     const errorMessage= useRef()
     const loginBtn= useRef()
@@ -28,7 +28,7 @@ const Login = () => {
 
       useEffect(() => {
 
-        if(logged.message==''&&logged.access!='')
+        if(logged?.message==''&&logged?.access!='')
         {
           errorMessage.current.style.display="none"
           setErrormessage('')  
@@ -37,7 +37,7 @@ const Login = () => {
         else
         {
           errorMessage.current.style.display="flex"
-          setErrormessage(logged.message)
+          setErrormessage(logged?.message)
           setTrial(false)
         }        
        

@@ -109,7 +109,7 @@ const UploadForm = () => {
     }
     return (
       <section>
-
+        <h2 style={{fontWeight:'bold',textAlign:'center', margin:'30px 0'}}>Upload your story</h2>
         <Dropzone onDrop={onDrop} accept={".pdf"} />
         
         <form onSubmit={(e)=>handleUpload(e)} className="uploadForm">

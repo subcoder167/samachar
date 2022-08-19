@@ -22,13 +22,13 @@ export const login=(email,password)=>async(dispatch)=>
         console.log(response)
         dispatch({
             type:ActionTypes.LOGIN,
-            payload:response.data.access
+            payload:response.data.token
         })
-        localStorage.setItem('access',response.data.access)
-        localStorage.setItem('refresh',response.data.refresh)
-        localStorage.setItem('username',response.data.username) 
-        console.log(localStorage.getItem('access'),localStorage.getItem('refresh'))
-        
+        localStorage.setItem('token',response.data.token)
+        // localStorage.setItem('refresh',response.data.refresh)
+        localStorage.setItem('username',response.data.user.email)        
+        localStorage.setItem('first_name',response.data.user.first_name)        
+        localStorage.setItem('last_name',response.data.user.last_name)        
         getUserData()
        
         
@@ -72,9 +72,9 @@ export const checkLogin=()=>(dispatch)=>
 {
     try
     {
-        var payload;
+        var payload=false;
         // 1. check if token exists. if token doesnt exist, redirect to login
-        if(!localStorage.getItem('access'))
+        if(!localStorage.getItem('token'))
         payload=false
         else
         payload=true
@@ -102,8 +102,8 @@ export const getUserData=()=>async(dispatch)=>
         const res = await api.get('/auth/get-user-info',enrichedConfig)
         if(res)
         {
-            localStorage.setItem('fname',res.data.first_name)
-            localStorage.setItem('lname',res.data.last_name)
+            localStorage.setItem('fname',res.data.user.first_name)
+            localStorage.setItem('lname',res.data.user.last_name)
         }
         
       } catch (error) {

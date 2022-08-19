@@ -22,7 +22,7 @@ export const updateProfile=(formData)=>async(dispatch)=>
         {   
             dispatch({type:ActionTypes.PROFILE_UPDATE_ATTEMPT})
             const enrichedConfig = Authorization(config)
-            const res= await api("/profile_update",enrichedConfig)
+            const res= await api("/profile_update/",enrichedConfig)
             console.log(res)
             if(res)
             {
@@ -35,6 +35,10 @@ export const updateProfile=(formData)=>async(dispatch)=>
                 type:ActionTypes.PROFILE_UPDATE_FAIL,
                 payload:"Network Error"
             })
+            else
+            {
+                dispatch({type:ActionTypes.PROFILE_UPDATE_FAIL,payload:"Something went wrong!"})
+            }
         }
 }
 

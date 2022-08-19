@@ -2,7 +2,7 @@ export const stringifyData=(formData)=>
 {   var data={}
 
 formData.append('username',localStorage.getItem('username'))
-formData.append('token',localStorage.getItem('access'));
+formData.append('token',localStorage.getItem('token'));
     for(var pair of formData.entries()) {
         data[pair[0]]=pair[1]
      }
@@ -17,8 +17,8 @@ return newData.reverse()
 
 export const Authorization=(config)=>
 {
-  if(localStorage.getItem('access'))
-  config.headers.Authorization=`Bearer ${localStorage.getItem('access')}`
+  if(localStorage.getItem('token'))
+  config.headers.Authorization=`Token ${localStorage.getItem('token')}`
   return config
 }
 

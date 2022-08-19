@@ -20,8 +20,8 @@ import { logout } from '../../redux/actions/login'
 const Nav = () => {
   const [open, setopen] = useState(false);
   // const [username, setUsername] = useState(localStorage.getItem('fname')+" "+localStorage.getItem('lname').charAt(0));
-  const [username, setUsername] = useState();
-  const [designation, setDesignation] = useState(localStorage.getItem('username'));
+  const [username, setUsername] = useState(localStorage.getItem('first_name'));
+  const [designation, setDesignation] = useState();
   const logged= useSelector(state=>state.logged.access)
 
   const navBar= useRef();

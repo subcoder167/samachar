@@ -13,21 +13,50 @@ import './Profile.css'
 import { updateProfile } from '../../redux/actions/profile';
 
 const Profile = () => {
+  const [first,setFirst]= useState(localStorage.getItem('first_name'))
+  const [last,setlast]= useState(localStorage.getItem('last_name'))
+  const [username,setUsername]= useState(localStorage.getItem('username'))
   const [password, setPassword] = useState(true);
+  
+  const [error,setError]= useState()
+
   const updateState=useSelector(state=>state.profile)
   const params= useParams()
   const dispatch = useDispatch()  
   // const passwordIcon= useRef()
-
+  const first_name = useRef()
+  const last_name = useRef()
+  const usernameIn = useRef()
+  const submitBtn = useRef()
   useEffect(() => {
-    
-    console.log(updateState)
-  }, [updateState]);
+    handleProfileChange()
+  }, []);
+
   const handleProfileSubmit=(e)=>
   {
     e.preventDefault()
+    if(first_name.current.value=="" || last_name.current.value=="" || usernameIn.current.value=="")
+    {
+      setError('Please donot keep any empty value')
+      return
+    }
+    setError('')
+
     let formData= new FormData(e.target)
     dispatch(updateProfile(formData))
+  }
+  const handleProfileChange=(e)=>
+  {
+    setError('')
+    if(first_name.current.value==first && last_name.current.value==last && usernameIn.current.value==username)
+    {
+        submitBtn.current.disabled=true;
+    } 
+
+    else 
+    {
+      submitBtn.current.disabled=false;
+    }
   }
   
 return (
@@ -43,17 +72,17 @@ return (
                   <div className="profileFormInputWrapper">
                     <label className="profileFormInputLabel desktopLabel">First Name</label>
                     <label className="profileFormInputLabel mobileLabel"><FaRegUser/></label>
-                    <input type="text" className="profileFormInput" name='first_name' placeholder='Enter your first name' />
+                    <input type="text" className="profileFormInput" defaultValue={first} name='first_name' placeholder='Enter your first name' ref={first_name} onChange={()=>handleProfileChange()} />
                   </div>
                   <div className="profileFormInputWrapper">
                     <label className="profileFormInputLabel desktopLabel">Last Name</label>
                     <label className="profileFormInputLabel mobileLabel"><FaRegUser/></label>
-                    <input type="text" className="profileFormInput" name='last_name' placeholder='Enter your last name' />
+                    <input type="text" className="profileFormInput" defaultValue={last} name='last_name' placeholder='Enter your last name' ref={last_name} onChange={()=>handleProfileChange()} />
                   </div>
                   <div className="profileFormInputWrapper">
                     <label className="profileFormInputLabel desktopLabel">Username</label>
                     <label className="profileFormInputLabel mobileLabel"><AiOutlineMail/></label>
-                    <input type="text" className="profileFormInput" name='username' placeholder='Enter your username' />
+                    <input type="text" className="profileFormInput"defaultValue={username} name='username' placeholder='Enter your username' ref={usernameIn} onChange={()=>handleProfileChange()} />
                   </div>
                   {/* <div className="profileFormInputWrapper">
                     <label className="profileFormInputLabel desktopLabel">password</label>
@@ -62,8 +91,9 @@ return (
                     <span ref={passwordIcon} className="passwordIcon" onClick={()=>setPassword(!password)} >{password?<AiFillEye/>:<AiFillEyeInvisible/>}</span>
 
                   </div> */}
+                  <div className="errorMessage">{error}</div>
                   <div className="profileFormInputWrapper">
-                    <button className="btn">
+                    <button className="btn" ref={submitBtn}> 
                       {updateState.updateTrial?<Spinner animation="border" variant="light"  />:<><span><AiOutlineReload/></span>Update Profile</>}                      
                       </button>
                   </div>
