@@ -3,48 +3,49 @@ import { ActionTypes } from "../constants/ActionTypes";
 import { getUserData } from "./login";
 
 
-export const register=(email,password)=>async(dispatch)=>
+export const register=(data)=>async(dispatch)=>
 {
-    var data = JSON.stringify({"email":email,"password":password});
-
+    
+  dispatch({
+    type:ActionTypes.REGISTER_ATTEMPT,
+  })
       var config = {
         method: 'post',
         headers: { 
           'Content-Type': 'application/json',
-          // 'Cookie': 'sessionid=axr32xft3ha32vch0cxgu7ttz2vxpupp; csrftoken=dLd04wSHvCRn3SVQz9qaZEUZ75ujHfSbdV2tt1Nx8h4fqao0LoVacpFNEAYTV0j7', 
         },
         data : data
       };
      
-      try
-      {
-        const response = await api('/register',config)
-        console.log(response)
-        dispatch({
-            type:ActionTypes.REGISTER,
-            payload:response.data.access
-        })
-       
+      try {
+        const response = await api.post('/register/',config)
+
+        console.log(JSON.stringify(response?.data));
+
+          dispatch({
+            type:ActionTypes.REGISTER_SUCCESS,
+          })
+
         
-      }     
-     catch(error) {
-       console.log(error.code)
-       if(error.code=='ERR_NETWORK')
-        dispatch(
-            {
-                type:ActionTypes.REGISTER_FAIL,
-                payload:'Something went wrong. Please contact developers'
-            }
-        )
-        else
-        {
-          dispatch(
-            {
-              type:ActionTypes.REGISTER_FAIL,        
-              payload:error.message
-            }
-          )
+    } catch (err) {
+        if (!err?.response) {
+            
+            dispatch({
+              type:ActionTypes.REGISTER_FAIL,
+              payload:"No Server Response"
+            })
+        } else if (err.response?.status === 409) {
+          
+            dispatch({
+              type:ActionTypes.REGISTER_FAIL,
+              payload:"Username exists"
+            })
+        } else {
+          dispatch({
+            type:ActionTypes.REGISTER_FAIL,
+            payload:"Registration failed"
+          })
         }
-   
-      };
+        
+    }
 }

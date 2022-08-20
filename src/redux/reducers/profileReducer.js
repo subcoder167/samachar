@@ -2,19 +2,20 @@ import { ActionTypes } from "../constants/ActionTypes";
 
 var initialState={
     updateTrial:false,
-    updateError:null
+    updateMessage:null,
+    profile:null
 }
 
  const profileReducer=(state=initialState,{type,payload})=>{
     switch (type) {
-        // case ActionTypes.REGISTER:
-        //     return {...state, register: true}
+        case ActionTypes.SET_PROFILE:
+            return {...state,updateTrial:false,updateMessage:false, profile: payload}
         case ActionTypes.PROFILE_UPDATE_ATTEMPT:            
-            return{...state,updateTrial:true}
+            return{...state,updateTrial:true,updateMessage:"Updating Profile..."}
         case ActionTypes.PROFILE_UPDATE_SUCCESS:
-            return{...state,updateTrial:false,updateError:null}
+            return{...state,updateTrial:false,updateMessage:"Profile updated successfully!",profile:payload}
         case ActionTypes.PROFILE_UPDATE_FAIL:
-            return{...state,updateTrial:false,updateError:payload}
+            return{...state,updateTrial:false,updateMessage:payload}
     
         default:
             return state

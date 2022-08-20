@@ -1,5 +1,5 @@
 import api from "../../api/api";
-import { Authorization } from "../../functions";
+import { Authorization} from "../../functions";
 import { ActionTypes } from "../constants/ActionTypes";
 
 
@@ -21,6 +21,7 @@ export const updateProfile=(formData)=>async(dispatch)=>
       try 
         {   
             dispatch({type:ActionTypes.PROFILE_UPDATE_ATTEMPT})
+            
             const enrichedConfig = Authorization(config)
             const res= await api("/profile_update/",enrichedConfig)
             console.log(res)

@@ -7,7 +7,7 @@
     align-items: center;
     justify-content: center;
 }
-.adminLoginFormWrapper{
+.userLoginFormWrapper{
     background-color: #202020;
     height: 450px;
     width: min(450px,90vw);   
@@ -20,7 +20,7 @@
     align-items: center;
     justify-content: center;
 }
-.adminLoginFormWrapper *{
+.userLoginFormWrapper *{
     border: none;
     outline: none;
     font-family: "Poppins",sans-serif;
@@ -39,11 +39,11 @@
     font-weight: 400;
     top: 0;
 }
-.adminLoginFormWrapper .loginFormInput
+.userLoginFormWrapper .loginFormInput
 {
     margin: 20px auto;
 }
-.adminLoginFormWrapper input{
+.userLoginFormWrapper input{
     display: block;
     height: 45px;
     width: min(360px,75vw); 
@@ -54,7 +54,7 @@
     border-radius: 5px;   
     transition: 0.5s all;
 }
-.adminLoginFormWrapper label{
+.userLoginFormWrapper label{
     
     color: #e5e5e5;
     cursor: pointer;
@@ -63,7 +63,7 @@
     transition: 0.5s all; 
 }
 
-.adminLoginFormWrapper button{
+.userLoginFormWrapper button{
     
     width: 100%;   
     padding: 15px 0;
@@ -73,18 +73,18 @@
     margin: 20px auto;
 }
 
-.adminLoginFormWrapper .errorMessage
+.userLoginFormWrapper .errorMessage
 {
     font-family: 'Montserrat',sans-serif;
     font-size: 12px;
     text-transform: uppercase;
     color: rgb(253, 98, 98);
-    display: none;
+    /* display: none; */
     text-align: center;
 
 }
 
-.adminLoginFormWrapper .loginBottomMessage
+.userLoginFormWrapper .loginBottomMessage
 {
     display: flex;
     flex-wrap: wrap;
@@ -92,7 +92,7 @@
     font-weight: 400;
     margin-top: 20px;
 }
-.adminLoginFormWrapper .loginBottomMessage a
+.userLoginFormWrapper .loginBottomMessage a
 {
     margin-left: 2px;
 }

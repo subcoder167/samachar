@@ -1,10 +1,10 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 import Nav from '../components/Nav/Nav'
-const Main = () => {
+const Main = ({role}) => {
   return (
     <>
-    <Nav/>
+    <Nav role={role}/>
      <section className='mainWrapper'>
          <Outlet/>
      </section>

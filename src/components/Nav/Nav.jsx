@@ -1,4 +1,4 @@
-import React,{useRef,useState,useEffect} from 'react'
+import React,{useRef,useState,useEffect, Fragment} from 'react'
 import { Link, NavLink,useNavigate } from 'react-router-dom'
 import { useSelector,useDispatch } from 'react-redux'
 
@@ -14,15 +14,16 @@ import './Nav.css'
 import logo from '../../assets/images/logo.png'
 import { checkLogin, getUserData } from '../../redux/actions/login'
 import { logout } from '../../redux/actions/login'
+import { ROLES } from '../../constants/RoleConstants'
 
 
 
-const Nav = () => {
+const Nav = ({role}) => {
   const [open, setopen] = useState(false);
   // const [username, setUsername] = useState(localStorage.getItem('fname')+" "+localStorage.getItem('lname').charAt(0));
-  const [username, setUsername] = useState(localStorage.getItem('first_name'));
-  const [designation, setDesignation] = useState();
-  const logged= useSelector(state=>state.logged.access)
+  const [username, setUsername] = useState('loading');
+  const [designation, setDesignation] = useState('loading');
+  const state= useSelector(state=>state.profile)
 
   const navBar= useRef();
 
@@ -40,7 +41,10 @@ const Nav = () => {
     //   console.error(error)
       
     // }
-  }, [designation,username]);
+    setUsername(state?.profile?.first_name)
+    setDesignation(state?.profile?.roles[0])
+    // console.log(role)
+  }, []);
 
 
   const toggleNav=()=>
@@ -60,7 +64,7 @@ const Nav = () => {
 const handleLogout=()=>
 {
   dispatch(logout())
-  navigate('/');
+  navigate('/login');
   localStorage.clear()
 }
 
@@ -80,16 +84,37 @@ const handleLogout=()=>
           Menu
         </div> */}
         <div className="navMenu">
-          
+         {
+          state?.profile?.roles[0]==ROLES.scout? 
+          <>
           <NavLink to="/dashboard/profile" className="navItem" onClick={toggleNav}>
           <ImUserPlus/> Profile
           </NavLink>
           <NavLink to="upload" className="navItem" onClick={toggleNav}>
           <FiEdit/>Upload
           </NavLink>
+          </>
+          :
+          state?.profile?.roles[0]==ROLES.writer ?
+          <>
           <NavLink to="agendas" className="navItem" onClick={toggleNav}>
           <FaEquals/>Agendas
           </NavLink>
+          </>
+          :
+          state?.profile?.roles[0]==ROLES.reviewer ?
+          <>
+          <NavLink to="agendas" className="navItem" onClick={toggleNav}>
+          <FaEquals/>Agendas
+          </NavLink>
+          </>
+          :
+          <></>
+          }
+          
+
+          
+
         
         </div>
         </div>

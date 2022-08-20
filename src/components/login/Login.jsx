@@ -1,73 +1,96 @@
-import React,{useEffect,useRef,useState} from 'react'
-import {Link, useNavigate} from 'react-router-dom'
-import './Login.css'
-import axios from 'axios';
-import api from '../../api/api';
-import {useSelector,useDispatch } from 'react-redux'
-import { login } from '../../redux/actions/login';
+import { useRef, useState, useEffect } from 'react';
+import { Link, useNavigate, useLocation, Navigate } from 'react-router-dom';
+import { useSelector,useDispatch } from 'react-redux/es/exports';
+import useAuth from '../../hooks/useAuth';
+import api from '../..//api/api';
 import Spinner from 'react-bootstrap/Spinner'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { login } from '../../redux/actions/login';
+
 const Login = () => {
-    const [errormessage, setErrormessage] = useState('');
-    const [trial, setTrial] = useState(false);
-    const [path,setPath]=useState('');
+    const [trial,setTrial]=useState(false)
 
-    const logged= useSelector(state=>state.login)
-    const dispatch=useDispatch()
-    const errorMessage= useRef()
-    const loginBtn= useRef()
+    const { setAuth } = useAuth();
+
     const navigate = useNavigate();
+    const location = useLocation();
+    const dispatch= useDispatch()
 
-    function handleLogin(e)
+    const from = location.state?.from?.pathname || "/";
+
+    const userRef = useRef();
+    const errRef = useRef();
+    const loginBtn = useRef();
+
+    const [user, setUser] = useState('');
+    const [pwd, setPwd] = useState('');
+    const [errMsg, setErrMsg] = useState('');
+
+    const state = useSelector(state=>state.login)
+    useEffect(() => {
+        userRef.current.focus();
+    }, [])
+
+    useEffect(() => {
+        setErrMsg('');
+    }, [user, pwd])
+
+    useEffect(() => {
+      setTrial(state?.trial)
+      setErrMsg(state?.message)
+      if(state?.logged===true)
       {
-          e.preventDefault();
-          var formdata= new FormData(e.target)          
-          dispatch(login(formdata.get('email'),formdata.get('password')))
-          setTrial(true)
+        let userObj={}
+        let user= state?.user?.email
+        let token= state?.token
+        let roles=["scout"]
+        setUser('')
+        setPwd('')
+        // setAuth({ user,roles, token });       
+        navigate('/dashboard',from, { replace: true });
       }
-
-      useEffect(() => {
-
-        if(logged?.message==''&&logged?.access!='')
-        {
-          errorMessage.current.style.display="none"
-          setErrormessage('')  
-          navigate('/dashboard')        
-        }  
-        else
-        {
-          errorMessage.current.style.display="flex"
-          setErrormessage(logged?.message)
-          setTrial(false)
-        }        
-       
-      }, [logged]);
+   
+      return () => {
+        setTrial(false)
+      };
+    }, [state]);
 
 
-    
-  return (
-    <div className="loginFormWrapper">
-        <form className='adminLoginFormWrapper' onSubmit={(e)=>handleLogin(e)}>
-          
-          <div className="formInputWrapper">
 
-            <div className="loginFormInput">
-            <label htmlFor="username">USERNAME</label>
-            <input type="text" id="username" placeholder="Enter your username" name="email" required/>
-            </div>
-            <div className="loginFormInput">
-            <label htmlFor="password">Password</label>
-            <input type="password" id="password" placeholder="Enter your password" name="password" required suggested="current-password"/>
-            </div>
-            <button ref={loginBtn} style={{height:'60px'}}>{!trial?"Login":<Spinner animation="border" variant="light"  />}</button>
-          </div>
-
-        <div className='loginBottomMessage'>New here? <Link to="/register">Create an Account</Link></div>
+    const handleLogin = async (e) => {
+        e.preventDefault()
+        var data= new FormData(e.target)
+        dispatch(login(data))
         
-        <div className="errorMessage" ref={errorMessage}>{errormessage}</div>
-    </form>
-    </div>
-  )
+      
+    }
+
+    return (
+      <>  
+          <div className="loginFormWrapper">
+            <form className='userLoginFormWrapper' onSubmit={(e)=>handleLogin(e)}>
+              
+              <div className="formInputWrapper">
+
+                <div className="loginFormInput">
+                <label htmlFor="username">USERNAME</label>
+                <input ref={userRef} type="text" id="username" placeholder="Enter your username" name="email" required/>
+                </div>
+                <div className="loginFormInput">
+                <label htmlFor="password">Password</label>
+                <input type="password" id="password" placeholder="Enter your password" name="password" required onChange={(e) => setPwd(e.target.value)}
+                                value={pwd}/>
+                </div>
+                <button ref={loginBtn} style={{height:'60px'}}>{!trial?"Login":<Spinner animation="border" variant="light"  />}</button>
+              </div>
+
+            <div className='loginBottomMessage'>New here? <Link to="/register">Create an Account</Link></div>
+            
+            <div className="errorMessage" ref={errRef}>{errMsg}</div>
+            </form>
+          </div>
+      </>
+    )
 }
 
 export default Login

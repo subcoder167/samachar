@@ -1,17 +1,20 @@
 import { ActionTypes } from "../constants/ActionTypes";
 
 var initialState={
-    access:false
+    registered:false,
+    trial:false,
+    message:'',
+    
 }
 
  const registerReducer=(state=initialState,{type,payload})=>{
     switch (type) {
-        // case ActionTypes.REGISTER:
-        //     return {...state, register: true}
+        case ActionTypes.REGISTER_ATTEMPT:
+            return {...state,trial:true, registered: false,message:''}
         case ActionTypes.REGISTER_SUCCESS:            
-            return{...state,register:payload}
+            return{...state,trial:false,registered:true,message:"user registered"}
         case ActionTypes.REGISTER_FAIL:
-            return{...state,register:false}
+            return{...state,trial:false,register:false,message:payload}
     
         default:
             return state

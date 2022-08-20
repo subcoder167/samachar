@@ -1,62 +1,155 @@
 import api from "../../api/api";
-import { Authorization } from "../../functions";
+import { Authorization, getCookie } from "../../functions";
 import { ActionTypes } from "../constants/ActionTypes";
+import useAuth from '../../hooks/useAuth';
+import { ROLES } from "../../constants/RoleConstants";
+import {setCookie,eraseCookie} from '../../functions/index'
+// export const login=(email,password)=>async(dispatch)=>
+// {
+//   const { setAuth } = useAuth();
+//     var data = JSON.stringify({"email":email,"password":password});
 
-
-export const login=(email,password)=>async(dispatch)=>
-{
-    var data = JSON.stringify({"email":email,"password":password});
-
-      var config = {
-        method: 'post',
-        headers: { 
-          'Content-Type': 'application/json',
-          // 'Cookie': 'sessionid=axr32xft3ha32vch0cxgu7ttz2vxpupp; csrftoken=dLd04wSHvCRn3SVQz9qaZEUZ75ujHfSbdV2tt1Nx8h4fqao0LoVacpFNEAYTV0j7', 
-        },
-        data : data
-      };
+//       var config = {
+//         method: 'post',
+//         headers: { 
+//           'Content-Type': 'application/json',
+//           // 'Cookie': 'sessionid=axr32xft3ha32vch0cxgu7ttz2vxpupp; csrftoken=dLd04wSHvCRn3SVQz9qaZEUZ75ujHfSbdV2tt1Nx8h4fqao0LoVacpFNEAYTV0j7', 
+//         },
+//         data : data
+//       };
      
-      try
-      {
-        const response = await api('',config)
-        console.log(response)
-        dispatch({
-            type:ActionTypes.LOGIN,
-            payload:response.data.token
-        })
-        localStorage.setItem('token',response.data.token)
-        // localStorage.setItem('refresh',response.data.refresh)
-        localStorage.setItem('username',response.data.user.email)        
-        localStorage.setItem('first_name',response.data.user.first_name)        
-        localStorage.setItem('last_name',response.data.user.last_name)        
-        getUserData()
-       
+//       try
+//       {
+//         const response = await api('',config)
+//         console.log(response)
+//         dispatch({
+//             type:ActionTypes.LOGIN,
+//             payload:response.data.token
+//         })
+//         const accessToken = response.data.token
+//         const roles="Scout"
+//         localStorage.setItem('token',response.data.token)
+//         // localStorage.setItem('refresh',response.data.refresh)
+//         localStorage.setItem('username',response.data.user.email)        
+//         localStorage.setItem('first_name',response.data.user.first_name)        
+//         localStorage.setItem('last_name',response.data.user.last_name)        
+//         getUserData()
+//         setAuth({ email, password, roles, accessToken });
         
-      }     
-     catch(error) {
-       console.log(error.code)
-       if(error.code=='ERR_NETWORK')
-        dispatch(
-            {
-                type:ActionTypes.LOGIN_FAIL,
-                payload:'Something went wrong. Please contact developers'
-            }
-        )
-        else
-        {
-          dispatch(
-            {
-              type:ActionTypes.LOGIN_FAIL,        
-              payload:error.message
-            }
-          )
-        }
+//       }     
+//      catch(error) {
+//        console.log(error.code)
+//        if(error.code=='ERR_NETWORK')
+//         dispatch(
+//             {
+//                 type:ActionTypes.LOGIN_FAIL,
+//                 payload:'Something went wrong. Please contact developers'
+//             }
+//         )
+//         else
+//         {
+//           dispatch(
+//             {
+//               type:ActionTypes.LOGIN_FAIL,        
+//               payload:error.message
+//             }
+//           )
+//         }
    
-      };
-}
+//       };
+// }
 
+export const login =(data)=>async(dispatch)=>
+{
+  if(getCookie('token'))
+  eraseCookie('token')
+ dispatch(
+  {
+    type:ActionTypes.LOGIN
+  }
+ )
+  var config = {
+    method: 'post',
+    headers: { 
+      'Content-Type': 'application/json',
+      // 'Cookie': 'sessionid=axr32xft3ha32vch0cxgu7ttz2vxpupp; csrftoken=dLd04wSHvCRn3SVQz9qaZEUZ75ujHfSbdV2tt1Nx8h4fqao0LoVacpFNEAYTV0j7', 
+    },
+    data : data
+  };
+  try {
+      const response = await api("/",config
+      );
+      console.log(JSON.stringify(response?.data));
+      //console.log(JSON.stringify(response));
+      if(response?.data)
+      {
+        setCookie('token',response?.data?.token,response?.data?.expires)
+        dispatch(
+          {
+            type:ActionTypes.LOGIN_SUCCESS,
+            payload:{
+               accessToken : response?.data?.token,
+               username: response?.data?.user?.email,
+               roles :[ROLES.scout],
+               first_name:response?.data?.user?.first_name,
+               last_name:response?.data?.user?.last_name
+            }
+          }
+        )
+        dispatch(
+          {
+            type:ActionTypes.SET_PROFILE,
+            payload:{
+               username: response?.data?.user?.email,
+               roles :[ROLES.scout],
+               first_name:response?.data?.user?.first_name,
+               last_name:response?.data?.user?.last_name
+            }
+          }
+        )
+      }
+      
+     
+      
+      
+      // navigate('/dashboard',from, { replace: true });
+  } catch (err) {
+    
+      if (!err?.response) {
+        dispatch(
+          {
+              type:ActionTypes.LOGIN_FAIL,
+              payload:'No Server Response'
+          }
+      )
+      } else if (err.response?.status === 400) {
+        dispatch(
+          {
+              type:ActionTypes.LOGIN_FAIL,
+              payload:'Check Credentials and Try Again'
+          }
+      )
+      } else if (err.response?.status === 401) {
+        dispatch(
+          {
+              type:ActionTypes.LOGIN_FAIL,
+              payload:'You Donot Have Authorization'
+          }
+      )
+      } else {
+        dispatch(
+          {
+              type:ActionTypes.LOGIN_FAIL,
+              payload:'Login Failed'
+          }
+      )
+      }
+     
+  }
+}
 export const logout=()=>async(dispatch)=>
 {
+  eraseCookie('token')
   dispatch(
     {
       type:ActionTypes.LOGOUT

@@ -13,14 +13,16 @@ import './Profile.css'
 import { updateProfile } from '../../redux/actions/profile';
 
 const Profile = () => {
-  const [first,setFirst]= useState(localStorage.getItem('first_name'))
-  const [last,setlast]= useState(localStorage.getItem('last_name'))
-  const [username,setUsername]= useState(localStorage.getItem('username'))
+  
   const [password, setPassword] = useState(true);
   
   const [error,setError]= useState()
-
+  
   const updateState=useSelector(state=>state.profile)
+
+  const [first,setFirst]= useState(updateState?.profile?.first_name)
+  const [last,setLast]= useState(updateState?.profile?.last_name)
+  const [username,setUsername]= useState(updateState?.profile?.username)
   const params= useParams()
   const dispatch = useDispatch()  
   // const passwordIcon= useRef()
@@ -31,6 +33,14 @@ const Profile = () => {
   useEffect(() => {
     handleProfileChange()
   }, []);
+
+  useEffect(() => {
+    setFirst(updateState?.profile?.first_name)
+    setLast(updateState?.profile?.last_name)
+    setUsername(updateState?.profile?.username)
+    
+  }, [updateState]);
+
 
   const handleProfileSubmit=(e)=>
   {
@@ -102,6 +112,8 @@ return (
                 </form>
               </div>
           </div>
+          <div className="errorMessage">{updateState?.updateMessage}</div>
+
         </section>
     </div>
   )
