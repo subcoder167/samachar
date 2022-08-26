@@ -4,6 +4,7 @@ import { ActionTypes } from "../constants/ActionTypes";
 import useAuth from '../../hooks/useAuth';
 import { ROLES } from "../../constants/RoleConstants";
 import {setCookie,eraseCookie} from '../../functions/index'
+import { HTTPCONSTANT } from "../../constants/httpConstants";
 // export const login=(email,password)=>async(dispatch)=>
 // {
 //   const { setAuth } = useAuth();
@@ -70,14 +71,10 @@ export const login =(data)=>async(dispatch)=>
  )
   var config = {
     method: 'post',
-    headers: { 
-      'Content-Type': 'application/json',
-      // 'Cookie': 'sessionid=axr32xft3ha32vch0cxgu7ttz2vxpupp; csrftoken=dLd04wSHvCRn3SVQz9qaZEUZ75ujHfSbdV2tt1Nx8h4fqao0LoVacpFNEAYTV0j7', 
-    },
     data : data
   };
   try {
-      const response = await api("/",config
+      const response = await api(HTTPCONSTANT.LOGIN,config
       );
       console.log(JSON.stringify(response?.data));
       //console.log(JSON.stringify(response));

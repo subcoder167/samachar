@@ -56,3 +56,8 @@ export const Authorization=(config)=>
   return config
 }
 
+export const  removeItemOnce=(arr,index) =>{  
+  return arr.filter(function(ele,idx){ 
+    return idx != index; 
+});
+}

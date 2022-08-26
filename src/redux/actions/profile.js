@@ -1,4 +1,6 @@
 import api from "../../api/api";
+import { HTTPCONSTANT } from "../../constants/httpConstants";
+import { ROLES } from "../../constants/RoleConstants";
 import { Authorization} from "../../functions";
 import { ActionTypes } from "../constants/ActionTypes";
 
@@ -12,8 +14,9 @@ export const updateProfile=(formData)=>async(dispatch)=>
 {
     var config = {
         method: 'post',
-        headers: { 
-          'Content-Type': 'application/json',
+        headers:
+        {
+            'Content-Type': 'application/json',
         },
         data : formData
       };
@@ -23,11 +26,20 @@ export const updateProfile=(formData)=>async(dispatch)=>
             dispatch({type:ActionTypes.PROFILE_UPDATE_ATTEMPT})
             
             const enrichedConfig = Authorization(config)
-            const res= await api("/profile_update/",enrichedConfig)
+            const res= await api(HTTPCONSTANT.PROFILE_UPDATE,enrichedConfig)
             console.log(res)
             if(res)
             {
-                dispatch({type:ActionTypes.PROFILE_UPDATE_SUCCESS})
+                dispatch(
+                    {type:ActionTypes.PROFILE_UPDATE_SUCCESS ,
+                        payload:
+                        {
+                            first_name:formData.get('first_name'),
+                            last_name:formData.get('last_name'),
+                            user_name:formData.get('username'),
+                            roles:[ROLES.scout]
+                        }
+                })
             }
             
         } catch (error) {

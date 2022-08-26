@@ -1,4 +1,5 @@
 import api from "../../api/api";
+import { HTTPCONSTANT } from "../../constants/httpConstants";
 import { ActionTypes } from "../constants/ActionTypes";
 import { getUserData } from "./login";
 
@@ -18,7 +19,7 @@ export const register=(data)=>async(dispatch)=>
       };
      
       try {
-        const response = await api.post('/register/',config)
+        const response = await api.post(HTTPCONSTANT.REGISTER,config)
 
         console.log(JSON.stringify(response?.data));
 

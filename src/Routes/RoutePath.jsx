@@ -26,6 +26,13 @@ const RoutePath = () => {
         <Route path="register" element={<Register />} />
         <Route path="linkpage" element={<LinkPage />} />
         <Route path="unauthorized" element={<Unauthorized />} />
+        
+        {/* DELETE THIS LATER */}
+        <Route path="dashboard" element={<Main role={ROLES.scout} />}>
+                {/* <Route path="" element={<UploadForm />} /> */}
+                <Route path="profile" element={<Profile/>} />
+                <Route path="upload" element={<UploadForm/>} />
+          </Route>
 
         {/* we want to protect these routes */}
         <Route element={<RequireAuth allowedRoles={[ROLES.scout]} />}>
@@ -37,12 +44,17 @@ const RoutePath = () => {
         </Route>
 
         <Route element={<RequireAuth allowedRoles={[ROLES.writer]} />}>
-        <Route path="dashboard" element={<Main role={ROLES.writer} />} />
+        <Route path="dashboard" element={<Main role={ROLES.writer} />} >
+                <Route path="profile" element={<Profile/>} />
+        </Route>
+        
         </Route>
 
 
         <Route element={<RequireAuth allowedRoles={[ROLES.reviewer]} />}>
-        <Route path="dashboard" element={<Main role={ROLES.reviewr} />} />
+        <Route path="dashboard" element={<Main role={ROLES.reviewer} />} >
+                <Route path="profile" element={<Profile/>} />
+        </Route>
         </Route>
 
         <Route element={<RequireAuth allowedRoles={[ROLES.Editor, ROLES.Admin]} />}>
