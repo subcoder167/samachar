@@ -1,0 +1,39 @@
+.dashboardTableWrapper
+{
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+.tableWrapper
+{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    max-width: 95%;
+}
+
+.tablePill
+{
+    background: rgb(189, 189, 189);
+    padding: 6px 10px;
+    margin: 5px ;
+    border-radius: 5px;
+}
+.Active
+{
+    background: rgb(60, 148, 83) ;
+    color:#fff;
+
+}
+.InProcess
+{
+    background: rgb(218, 178, 32);    
+    color:#fff;
+}
+.Rejected
+{
+    background: rgb(250, 60, 60);    
+    color:#fff;
+}

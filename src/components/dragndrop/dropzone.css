@@ -12,7 +12,7 @@
 }
 .dropzone-content
 {
-    font-size: 4vh;
+    font-size: 3vh;
 }
 .fileItemWrapper
 {
@@ -61,4 +61,11 @@
 {
     display: block;
     font-size: 16px;
+}
+@media screen and (max-width:756px) {
+    .dropzone-content
+    {
+        font-size: 2vh;
+    }
+    
 }

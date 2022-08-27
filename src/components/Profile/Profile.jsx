@@ -11,6 +11,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Goback from '../goBack/Goback';
 import './Profile.css'
 import { updateProfile } from '../../redux/actions/profile';
+import { generateRandomColor } from '../../functions';
 
 const Profile = () => {
   
@@ -77,7 +78,7 @@ return (
               <div className="profileHeader">
               </div>
               <div className="profileBody">
-                <div className="avatar">GG</div>
+                <div className="avatar" style={{background:generateRandomColor()}}>{first.charAt(0).toUpperCase()}{last.charAt(0).toUpperCase()}</div>
                 <form className="profileForm" onSubmit={(e)=>handleProfileSubmit(e)}>
                   <div className="profileFormInputWrapper">
                     <label className="profileFormInputLabel desktopLabel">First Name</label>

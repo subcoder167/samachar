@@ -16,6 +16,8 @@ import Main from '../pages/Main';
 import Profile from '../components/Profile/Profile'
 import UploadForm from '../components/uploadForm/UploadForm'
 import { ROLES } from '../constants/RoleConstants';
+import { getCookie } from '../functions';
+import Story from '../components/Stories/Story';
 const RoutePath = () => {
   
   return (
@@ -28,32 +30,43 @@ const RoutePath = () => {
         <Route path="unauthorized" element={<Unauthorized />} />
         
         {/* DELETE THIS LATER */}
-        <Route path="dashboard" element={<Main role={ROLES.scout} />}>
-                {/* <Route path="" element={<UploadForm />} /> */}
+        {/* <Route path="dashboard" element={<Main role={[ROLES.scou]t} />}>
                 <Route path="profile" element={<Profile/>} />
                 <Route path="upload" element={<UploadForm/>} />
-          </Route>
+          </Route> */}
 
         {/* we want to protect these routes */}
-        <Route element={<RequireAuth allowedRoles={[ROLES.scout]} />}>
-          <Route path="dashboard" element={<Main role={ROLES.scout} />}>
+        <Route element={<RequireAuth allowedRoles={[ROLES.scout,ROLES.writer,ROLES.reviewer]} />}>
+          <Route path="dashboard" element={<Main role={[getCookie('role')]} />}>
                 {/* <Route path="" element={<UploadForm />} /> */}
                 <Route path="profile" element={<Profile/>} />
                 <Route path="upload" element={<UploadForm/>} />
           </Route>
         </Route>
 
-        <Route element={<RequireAuth allowedRoles={[ROLES.writer]} />}>
-        <Route path="dashboard" element={<Main role={ROLES.writer} />} >
+        <Route element={<RequireAuth allowedRoles={[ROLES.writer,ROLES.reviewer]} />}>
+          <Route path="dashboard" element={<Main role={[getCookie('role')]} />}>
+                {/* <Route path="" element={<UploadForm />} /> */}
                 <Route path="profile" element={<Profile/>} />
+                <Route path="upload" element={<UploadForm/>} />
+                <Route path="stories" element={<Story/>} />
+          </Route>
+        </Route>
+
+
+        <Route element={<RequireAuth allowedRoles={[ROLES.writer]} />}>
+        <Route path="dashboard" element={<Main role={[getCookie('role')]} />} >
+                <Route path="profile" element={<Profile/>} />
+                <Route path="upload" element={<UploadForm/>} />
         </Route>
         
         </Route>
 
 
         <Route element={<RequireAuth allowedRoles={[ROLES.reviewer]} />}>
-        <Route path="dashboard" element={<Main role={ROLES.reviewer} />} >
+        <Route path="dashboard" element={<Main role={[getCookie('role')]} />} >
                 <Route path="profile" element={<Profile/>} />
+                <Route path="upload" element={<UploadForm/>} />
         </Route>
         </Route>
 

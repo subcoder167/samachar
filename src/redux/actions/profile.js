@@ -1,7 +1,7 @@
 import api from "../../api/api";
 import { HTTPCONSTANT } from "../../constants/httpConstants";
 import { ROLES } from "../../constants/RoleConstants";
-import { Authorization} from "../../functions";
+import { Authorization, getCookie} from "../../functions";
 import { ActionTypes } from "../constants/ActionTypes";
 
 
@@ -37,7 +37,7 @@ export const updateProfile=(formData)=>async(dispatch)=>
                             first_name:formData.get('first_name'),
                             last_name:formData.get('last_name'),
                             user_name:formData.get('username'),
-                            roles:[ROLES.scout]
+                            roles:getCookie('role')
                         }
                 })
             }

@@ -1,8 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation, Navigate } from 'react-router-dom';
 import { useSelector,useDispatch } from 'react-redux/es/exports';
-import useAuth from '../../hooks/useAuth';
-import api from '../..//api/api';
+
 import Spinner from 'react-bootstrap/Spinner'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { login } from '../../redux/actions/login';
@@ -10,7 +9,7 @@ import { login } from '../../redux/actions/login';
 const Login = () => {
     const [trial,setTrial]=useState(false)
 
-    const { setAuth } = useAuth();
+
 
     const navigate = useNavigate();
     const location = useLocation();

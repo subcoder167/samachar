@@ -76,18 +76,19 @@ export const login =(data)=>async(dispatch)=>
   try {
       const response = await api(HTTPCONSTANT.LOGIN,config
       );
-      console.log(JSON.stringify(response?.data));
+      console.log(response?.data);
       //console.log(JSON.stringify(response));
       if(response?.data)
       {
         setCookie('token',response?.data?.token,response?.data?.expires)
+        setCookie('role',response?.data?.user?.role,response?.data?.expires)
         dispatch(
           {
             type:ActionTypes.LOGIN_SUCCESS,
             payload:{
                accessToken : response?.data?.token,
                username: response?.data?.user?.email,
-               roles :[ROLES.scout],
+               roles :[response?.data?.user?.role],
                first_name:response?.data?.user?.first_name,
                last_name:response?.data?.user?.last_name
             }

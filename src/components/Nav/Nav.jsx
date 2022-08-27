@@ -6,7 +6,7 @@ import {BiLogOut,BiChevronLeft} from 'react-icons/bi'
 import {FiMoreHorizontal,FiUsers,FiEdit} from 'react-icons/fi'
 import {FaUserShield,FaUser,FaEquals,FaDownload} from 'react-icons/fa'
 import {ImUsers,ImLocation,ImUserPlus} from 'react-icons/im'
-import {TiTickOutline} from 'react-icons/ti'
+import {RiArticleLine} from 'react-icons/ri'
 import {BsPatchQuestionFill} from 'react-icons/bs'
 import {HiOutlineMenuAlt3} from 'react-icons/hi'
 
@@ -15,6 +15,7 @@ import logo from '../../assets/images/logo.png'
 import { checkLogin, getUserData } from '../../redux/actions/login'
 import { logout } from '../../redux/actions/login'
 import { ROLES } from '../../constants/RoleConstants'
+import { getCookie } from '../../functions'
 
 
 
@@ -24,6 +25,7 @@ const Nav = ({role}) => {
   const [username, setUsername] = useState('loading');
   const [designation, setDesignation] = useState('loading');
   const state= useSelector(state=>state.profile)
+  const stateLogin= useSelector(state=>state.login)
 
   const navBar= useRef();
 
@@ -31,18 +33,9 @@ const Nav = ({role}) => {
   const navigate= useNavigate()
 
   useEffect(() => {
-    // if(!designation)
-    // navigate("/")    
-    // try {
-    //   dispatch(getUserData())
-    //   setUsername(localStorage.getItem('fname')+" "+localStorage.getItem('lname').charAt(0))
-      
-    // } catch (error) {
-    //   console.error(error)
-      
-    // }
+   console.log('in nav',role)
     setUsername(state?.profile?.first_name)
-    setDesignation(state?.profile?.roles[0])
+    setDesignation(getCookie('role'))
     // console.log(role)
   }, []);
 
@@ -85,24 +78,38 @@ const handleLogout=()=>
         </div> */}
         <div className="navMenu">
          {
-          state?.profile?.roles[0]==ROLES.scout? 
+          stateLogin?.user?.roles?.find((r)=> r.includes(ROLES.scout)||r.includes(ROLES.writer)||r.includes(ROLES.reviewer))? 
           <>
-          <NavLink to="/dashboard/profile" className="navItem" onClick={toggleNav}>
+          <NavLink to="profile" className="navItem" onClick={toggleNav}>
           <ImUserPlus/> Profile
           </NavLink>
           <NavLink to="upload" className="navItem" onClick={toggleNav}>
           <FiEdit/>Upload
           </NavLink>
           </>
-          :
-          state?.profile?.roles[0]==ROLES.writer ?
+          : <></>}
+
+{
+          stateLogin?.user?.roles?.find((r)=> r.includes(ROLES.writer)||r.includes(ROLES.reviewer))? 
+          <>
+          <NavLink to="stories" className="navItem" onClick={toggleNav}>
+          <RiArticleLine/> Stories
+          </NavLink>
+         
+          </>
+          : <></>}
+
+
+
+         { stateLogin?.user?.roles?.find((r)=>r.includes(ROLES.writer)) ?
           <>
           <NavLink to="agendas" className="navItem" onClick={toggleNav}>
           <FaEquals/>Agendas
           </NavLink>
           </>
-          :
-          state?.profile?.roles[0]==ROLES.reviewer ?
+          : <></>
+          }
+          {stateLogin?.user?.roles?.find((r)=> r.includes(ROLES.reviewer)) ?
           <>
           <NavLink to="agendas" className="navItem" onClick={toggleNav}>
           <FaEquals/>Agendas

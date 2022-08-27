@@ -1,4 +1,4 @@
-import React,{useState,useCallback,useEffect} from 'react'
+import React,{useState,useCallback,useEffect, useRef} from 'react'
 import { useSelector,useDispatch } from 'react-redux/es/exports';
 import Select from 'react-select'
 import CreatableSelect from "react-select/creatable";
@@ -22,6 +22,7 @@ const UploadForm = () => {
     const state= useSelector(state=>state.story)
     const dispatch= useDispatch()
 
+    const uploadForm= useRef()
     useEffect(() => {
       setTrial(state.trial)
       setMsg(state.message)
@@ -108,21 +109,30 @@ const UploadForm = () => {
         dispatch(uploadStory(formData))
     }
     
+    useEffect(() => {
+      if(state.uploaded)
+      {
+        uploadForm.current.reset()
+      }
+      
+    }, [state]);
+
+
     return (
       <section>
         <h2 style={{fontWeight:'bold',textAlign:'center', margin:'30px 0'}}>Upload your story</h2>
         <Dropzone onDrop={onDrop}  accept="application/pdf"/>
         
-        <form onSubmit={(e)=>handleUpload(e)} className="uploadForm">
+        <form onSubmit={(e)=>handleUpload(e)} className="uploadForm" ref={uploadForm}>
             <div className="form-row my-2">
                 <div className="form-group col-md-4">
-                <label for="Demographic">Demographic</label>
-                <input type="text" className="form-control" id="Demographic" name='demographic' placeholder="Enter Demographic"/>
+                <label for="Geography">Geography</label>
+                <input type="text" className="form-control" id="Geography" name='geography' placeholder="Enter Geography" required/>
                 </div>
 
                 <div className="form-group col-md-4">
                 <label for="Language">Language</label>
-                <input type="text" className="form-control" id="Language" name="language" placeholder="Enter Language"/>
+                <input type="text" className="form-control" id="Language" name="language" placeholder="Enter Language" required/>
                 </div>
             </div>
 
@@ -137,12 +147,13 @@ const UploadForm = () => {
                 className="uploadFormInput"
                 placeholder="Add a genre"
                 id="genreSelect"
+                required
                 />
             </div>
 
             <div className="form-group my-2">
                 <label for="Comment">Comment</label>
-                <input type="text" className="form-control" id="Comment" name="comment" placeholder="Enter Comment"/>
+                <input type="text" className="form-control" id="Comment" name="comment" placeholder="Enter Comment" required/>
             </div>
            
             <button
