@@ -33,6 +33,11 @@ const Nav = ({role}) => {
   const navigate= useNavigate()
 
   useEffect(() => {
+    if(state?.profile?.first_name=="" || state?.profile?.last_name=="")
+    {
+      navigate('/complete-profile')
+    }
+
    console.log('in nav',role)
     setUsername(state?.profile?.first_name)
     setDesignation(getCookie('role'))
@@ -111,8 +116,8 @@ const handleLogout=()=>
           }
           {stateLogin?.user?.roles?.find((r)=> r.includes(ROLES.reviewer)) ?
           <>
-          <NavLink to="agendas" className="navItem" onClick={toggleNav}>
-          <FaEquals/>Agendas
+          <NavLink to="writer" className="navItem" onClick={toggleNav}>
+          <FaEquals/>Writers
           </NavLink>
           </>
           :

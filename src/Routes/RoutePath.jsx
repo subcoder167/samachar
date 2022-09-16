@@ -26,7 +26,7 @@ const RoutePath = () => {
         {/* public routes */}
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
-        <Route path="linkpage" element={<LinkPage />} />
+        {/* <Route path="linkpage" element={<LinkPage />} /> */}
         <Route path="unauthorized" element={<Unauthorized />} />
         
         {/* DELETE THIS LATER */}
@@ -37,6 +37,7 @@ const RoutePath = () => {
 
         {/* we want to protect these routes */}
         <Route element={<RequireAuth allowedRoles={[ROLES.scout,ROLES.writer,ROLES.reviewer]} />}>
+          <Route path="complete-profile" element={<Profile/>}/>
           <Route path="dashboard" element={<Main role={[getCookie('role')]} />}>
                 {/* <Route path="" element={<UploadForm />} /> */}
                 <Route path="profile" element={<Profile/>} />

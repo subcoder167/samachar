@@ -13,7 +13,11 @@
     align-items: flex-end;
     max-width: 95%;
 }
-
+.tablePillWrapper
+{
+    display: flex;
+    flex-wrap: wrap;
+}
 .tablePill
 {
     background: rgb(189, 189, 189);

@@ -26,7 +26,12 @@
 }
 .ant-table-cell
 {
-  text-transform: capitalize;
+  /* text-transform: capitalize; */
+}
+.ant-table-selection-column
+{
+  width: 5px !important;
+  padding: 0;
 }
 .emailTd
 {

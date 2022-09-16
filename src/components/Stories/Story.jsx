@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react'
-import {Table,Pagination,Radio,Divider} from 'antd';
+import {Table,Pagination,Radio,Divider, Tag} from 'antd';
 import {RiFilter2Fill} from 'react-icons/ri'
 import { useDispatch, useSelector } from 'react-redux';
 import Spinner from 'react-bootstrap/Spinner'
@@ -10,7 +10,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { fetchStory } from '../../redux/actions/story';
 import './Story.css'
 const Story = () => {
-    const [trial,setTrial] = useState(false)
+    const [trial,setTrial] = useState(false) 
+    const [select,setSelect] = useState({
+    selectedRowKeys: [],
+    loading: false,
+  });
     const [msg, setMsg] = useState('');
     const [data,setData]=useState([]);
 
@@ -18,7 +22,7 @@ const Story = () => {
     const dispatch= useDispatch()
 
 
-
+    
     const columns = [
         // {
         //   title: 'Name',
@@ -26,7 +30,7 @@ const Story = () => {
         //   dataIndex: 'name',
         //   key: 'name',
         //   fixed: 'left', render: (text, record) => (
-        //   <section className='flexCol'>
+            //   <section className='flexCol'>
         //   <div className="boldTd">{record}</div>
         //   </section>   
         //   ),
@@ -46,83 +50,83 @@ const Story = () => {
         //         "value": "Andaman and Nicobar Islands"
         //         },
         //         {
-                
+            
         //         "text": "Andhra Pradesh",
         //         "value": "Andhra Pradesh"
         //         },
         //         {
                 
-        //         "text": "Arunachal Pradesh",
-        //         "value": "Arunachal Pradesh"
-        //         },
-        //         {
+            //         "text": "Arunachal Pradesh",
+            //         "value": "Arunachal Pradesh"
+            //         },
+            //         {
                 
         //         "text": "Assam",
         //         "value": "Assam"
         //         },
         //         {
-                
+            
         //         "text": "Bihar",
         //         "value": "Bihar"
         //         },
         //         {
+            
+            //         "text": "Chandigarh",
+            //         "value": "Chandigarh"
+            //         },
+            //         {
                 
-        //         "text": "Chandigarh",
-        //         "value": "Chandigarh"
-        //         },
-        //         {
-                
-        //         "text": "Chhattisgarh",
+                //         "text": "Chhattisgarh",
         //         "value": "Chhattisgarh"
         //         },
         //         {
-                
+            
         //         "text": "Dadra and Nagar Haveli",
         //         "value": "Dadra and Nagar Haveli"
         //         },
         //         {
-                
+            
         //         "text": "Daman and Diu",
         //         "value": "Daman and Diu"
         //         },
         //         {
-                
-        //         "text": "Delhi",
+            
+            //         "text": "Delhi",
         //         "value": "Delhi"
         //         },
         //         {
                 
-        //         "text": "Goa",
-        //         "value": "Goa"
+            //         "text": "Goa",
+            //         "value": "Goa"
         //         },
         //         {
                 
-        //         "text": "Gujarat",
-        //         "value": "Gujarat"
-        //         },
-        //         {
+            //         "text": "Gujarat",
+            //         "value": "Gujarat"
+            //         },
+            //         {
                 
-        //         "text": "Haryana",
-        //         "value": "Haryana"
-        //         },
-        //         {
+                //         "text": "Haryana",
+                //         "value": "Haryana"
+                //         },
+                //         {
                 
-        //         "text": "Himachal Pradesh",
-        //         "value": "Himachal Pradesh"
+                    //         "text": "Himachal Pradesh",
+                    //         "value": "Himachal Pradesh"
         //         },
         //         {
-                
-        //         "text": "Jammu and Kashmir",
-        //         "value": "Jammu and Kashmir"
-        //         },
-        //         {
+            
+            //         "text": "Jammu and Kashmir",
+            //         "value": "Jammu and Kashmir"
+            //         },
+            //         {
                 
         //         "text": "Jharkhand",
         //         "value": "Jharkhand"
         //         },
         //         {
                 
-        //         "text": "Karnataka",
+            //         "text": "Karnataka",
         //         "value": "Karnataka"
         //         },
         //         {
@@ -132,7 +136,7 @@ const Story = () => {
         //         },
         //         {
                 
-        //         "text": "Lakshadweep",
+            //         "text": "Lakshadweep",
         //         "value": "Lakshadweep"
         //         },
         //         {
@@ -141,137 +145,137 @@ const Story = () => {
         //         "value": "Madhya Pradesh"
         //         },
         //         {
-                
+            
         //         "text": "Maharashtra",
         //         "value": "Maharashtra"
         //         },
         //         {
                 
-        //         "text": "Manipur",
+            //         "text": "Manipur",
         //         "value": "Manipur"
         //         },
         //         {
-                
-        //         "text": "Meghalaya",
-        //         "value": "Meghalaya"
+            
+            //         "text": "Meghalaya",
+            //         "value": "Meghalaya"
         //         },
         //         {
-                
+            
         //         "text": "Mizoram",
         //         "value": "Mizoram"
         //         },
         //         {
+            
+            //         "text": "Nagaland",
+            //         "value": "Nagaland"
+            //         },
+            //         {
                 
-        //         "text": "Nagaland",
-        //         "value": "Nagaland"
-        //         },
-        //         {
-                
-        //         "text": "Odisha",
-        //         "value": "Odisha"
-        //         },
-        //         {
-                
-        //         "text": "Puducherry",
-        //         "value": "Puducherry"
-        //         },
-        //         {
-                
-        //         "text": "Punjab",
+                //         "text": "Odisha",
+                //         "value": "Odisha"
+                //         },
+                //         {
+                    
+                    //         "text": "Puducherry",
+                    //         "value": "Puducherry"
+                    //         },
+                    //         {
+                        
+                        //         "text": "Punjab",
         //         "value": "Punjab"
         //         },
         //         {
-                
-        //         "text": "Rajasthan",
+            
+            //         "text": "Rajasthan",
         //         "value": "Rajasthan"
         //         },
         //         {
-                
-        //         "text": "Sikkim",
-        //         "value": "Sikkim"
+            
+            //         "text": "Sikkim",
+            //         "value": "Sikkim"
         //         },
         //         {
                 
-        //         "text": "Tamil Nadu",
-        //         "value": "Tamil Nadu"
+            //         "text": "Tamil Nadu",
+            //         "value": "Tamil Nadu"
         //         },
         //         {
-                
-        //         "text": "Telangana",
-        //         "value": "Telangana"
-        //         },
-        //         {
+            
+            //         "text": "Telangana",
+            //         "value": "Telangana"
+            //         },
+            //         {
                 
         //         "text": "Tripura",
         //         "value": "Tripura"
         //         },
         //         {
+            
+            //         "text": "Uttar Pradesh",
+            //         "value": "Uttar Pradesh"
+            //         },
+            //         {
                 
-        //         "text": "Uttar Pradesh",
-        //         "value": "Uttar Pradesh"
+                //         "text": "Uttarakhand",
+                //         "value": "Uttarakhand"
         //         },
         //         {
-                
-        //         "text": "Uttarakhand",
-        //         "value": "Uttarakhand"
-        //         },
-        //         {
-                
-        //         "text": "West Bengal",
-        //         "value": "West Bengal"
-        //         }
+            
+            //         "text": "West Bengal",
+            //         "value": "West Bengal"
+            //         }
         //         ],
         //     filterMode: 'map',
         //     filterIcon:()=><RiFilter2Fill size={16}/>,
         //     onFilter: (value, record) => record.geography.includes(value),
         // },
         // {
-        //     title: 'Language',
+            //     title: 'Language',
         //     dataIndex: 'language',
         //     key: 'language',
         //     width: "min(50px,10vw)",
         //     // render: (text,record) => <span className={`statusDiv ${record.status}`}>{record.status}</span>,
         //     filters: [
-        //       {
-        //         text: 'English',
-        //         value: 'english',
+            //       {
+                //         text: 'English',
+                //         value: 'english',
         //       },
         //       {
-        //         text: 'Hindi',
-        //         value: 'hindi',
-        //       },
-        //       {
-        //         text: 'Bengali',
-        //         value: 'bengali',
-        //       }
-        //     ],
-        //     filterMode: 'map',
+            //         text: 'Hindi',
+            //         value: 'hindi',
+            //       },
+            //       {
+                //         text: 'Bengali',
+                //         value: 'bengali',
+                //       }
+                //     ],
+                //     filterMode: 'map',
         //     // filterSearch: true,
         //   onFilter: (value, record) => record.language.startsWith(value),
         //   filterIcon:()=><RiFilter2Fill size={16}/>
         // },
         // {
-        //     title: 'Status',
+            //     title: 'Status',
         //     dataIndex: 'status',
         //     key: 'status',
         //     width: "min(80px,16vw)",
         //     render: (text,record) => <span className={`statusDiv ${record.status}`}>{record.status}</span>,
         //     filters: [
-        //     {
-        //         text: 'InProcess',
-        //         value: 'inprocess',
+            //     {
+                //         text: 'InProcess',
+                //         value: 'inprocess',
         //     },
         //     {
-        //         text: 'Contacted',
-        //         value: 'contacted',
-        //     },
-        //     {
-        //         text: 'Verified',
-        //         value: 'verified',
-        //     },
-        //     {
-        //         text: 'Refused',
-        //         value: 'refused',
+            //         text: 'Contacted',
+            //         value: 'contacted',
+            //     },
+            //     {
+                //         text: 'Verified',
+                //         value: 'verified',
+                //     },
+                //     {
+                    //         text: 'Refused',
+                    //         value: 'refused',
         //     },
         //     ],
         //     filterMode: 'map',
@@ -286,20 +290,20 @@ const Story = () => {
         //     width: "min(80px,10vw)",
         //     render: (text,record) => <span className={`statusDiv ${record.status}`}>{record.status}</span>,
         //     filters: [
-        //     {
+            //     {
         //         text: 'InProcess',
         //         value: 'inprocess',
         //     },
         //     {
-        //         text: 'Contacted',
-        //         value: 'contacted',
+            //         text: 'Contacted',
+            //         value: 'contacted',
         //     },
         //     {
-        //         text: 'Verified',
-        //         value: 'verified',
+            //         text: 'Verified',
+            //         value: 'verified',
         //     },
         //     {
-        //         text: 'Refused',
+            //         text: 'Refused',
         //         value: 'refused',
         //     },
         //     ],
@@ -310,9 +314,9 @@ const Story = () => {
         // },
         {
             title: 'Name',
-            width:'min(16px,10vw)',
-            dataIndex:'name',
-            key:'name'
+            width:'min(25px,10vw)',
+            dataIndex:'uploaded_by_id',
+            key:'uploaded_by_id'
         },
         {
             title: 'geography',
@@ -325,14 +329,17 @@ const Story = () => {
             width:'min(16px,10vw)',
             dataIndex:'language',
             key:'language'
-        }
-        ,
+        },
         {
-            title: 'Comment',
+            title: 'File',
             width:'min(16px,10vw)',
-            dataIndex:'comment',
-            key:'comment'
+            dataIndex:'file',
+            key: 'file',
+            render: (text, record) =>
+                <a href={'http://147.182.236.95:8000/'+text} target="_blank" rel='noreferrer noopener'>
+                    Preview File</a>
         }
+        
         ,
         {
             title: 'Genre',
@@ -340,7 +347,12 @@ const Story = () => {
             dataIndex:'genre',
             key:'genre',
             // render: (text,record) =>{text.map((genre)=><span className="genrePill">genre</span>)}
-            render: (text,record) =><>{text.map((genre)=><span className="tablePill">{genre}</span>)}</>
+            render: (text, record) =>
+                <div className='tablePillWrapper'>
+                    {text.split(",").map(String).map((genre) =>
+                        <Tag className="tablePill" color="grey">{genre}</Tag>
+       
+                    )}</div>
         }
         ,
         {
@@ -349,17 +361,41 @@ const Story = () => {
             dataIndex:'status',
             key:'status',
             // render: (text,record) =>{text.map((genre)=><span className="tablePill">genre</span>)}
-            render: (text,record) =><span className={`tablePill ${text}`}>{text}</span>
-        }
-      ];
-
-      const dummyData=[
+            render: (text,record) =><span className={`tablePill `}>{text}</span>
+        },
         {
-            "id":1,
-            "name":"Demo1",
-            "geography":"Kolkata, India",
-            "language":"English",
-            "comment":"lorem Ipsum",
+            title: 'References',
+            width:'min(32px,10vw)',
+            dataIndex:'referrence_fields',
+            key:'referrence_fields',
+            // render: (text,record) =>{text.map((genre)=><span className="tablePill">genre</span>)}
+            render: (text,record) => <div className='tablePillWrapper'>
+                {text.split(",").map(String).map((references) =>
+                        <a href={references}><Tag color="grey" style={{margin:'3px'}}>{references}</Tag></a>
+                        
+       
+                    )}</div>
+        }
+    ];
+    
+    const { selectedRowKeys, loading } = select;
+
+    const rowSelection = {
+          selectedRowKeys,
+    onChange: (selectedRowKeys) => {
+      setSelect({
+        ...select,
+        selectedRowKeys: selectedRowKeys
+      });
+    }
+};
+      const dummyData=[
+          {
+              "id":1,
+              "name":"Demo1",
+              "geography":"Kolkata, India",
+              "language":"English",
+              "comment":"lorem Ipsum",
             "genre":['thriller','fantasy'],
             "status":"Active"
         },
@@ -434,20 +470,21 @@ const Story = () => {
             "genre":['thriller','fantasy'],
             "status":"Rejected"
         }
-      ]
+    ]
      
-      const rowSelection = {
+    // const rowSelection = {
         
-        getCheckboxProps: (record) => ({
-          disabled: record.name === 'Disabled User',
-          // Column configuration not to be checked
-          name: record.name,
-        }),
-      };
-
-      useEffect(() => {
-        dispatch(fetchStory())        
-      }, []);
+    //     getCheckboxProps: (record) => ({
+    //         disabled: record.name === 'Disabled User',
+    //         // Column configuration not to be checked
+    //         name: record.name,
+    //     }),
+    // };
+ 
+    useEffect(() => {
+          if((state?.stories && state?.stories.length==0))
+          dispatch(fetchStory())        
+        }, []);
 
         useEffect(()=>{
             console.log(state)
@@ -470,13 +507,9 @@ const Story = () => {
 
             <Divider />
 
-            <Table
-                rowSelection={{
-                type: "checkbox",
-                ...rowSelection,
-                }}
+            <Table                
                     columns={columns}
-                    dataSource={dummyData}
+                    dataSource={data}
                     scroll={{
                         x: 1500,
                     }}
