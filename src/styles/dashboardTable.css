@@ -27,6 +27,8 @@
 .ant-table-cell
 {
   /* text-transform: capitalize; */
+  padding: 10px 2px !important;
+  width:20px !important;
 }
 .ant-table-selection-column
 {
@@ -103,4 +105,32 @@
       font-size: 60%;
     }
   }
+.searchForm
+{
+  border-radius: 5px;
+}
+.searchForm>input,
+.searchForm>button {
+  background: transparent;
+  border: 0 transparent;
+  height: 40px;
+  padding: 0 10px;
+}
 
+.searchForm>input {
+  width: 80%;
+  padding: 0 2%;
+  font-weight: 600;
+  color: rgb(0, 0, 0, 0.3);
+}
+
+.searchForm>input:focus,
+.searchForm>input:hover {
+  border: none;
+  outline: none;
+}
+
+.searchForm>button {
+  font-size: 20px;
+  color: #004C93;
+}

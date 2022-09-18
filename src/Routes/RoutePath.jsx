@@ -3,14 +3,13 @@ import { Routes, Route } from 'react-router-dom';
 
 import Register from '../components/Login/Register';
 import Login from '../components/Login/Login';
-import Home from '../components/Home';
+
 import Layout from '../components/Layout';
-import Editor from '../components/Editor';
-import Admin from '../components/Admin';
+
 import Missing from '../components/Missing';
 import Unauthorized from '../components/Unauthorized';
-import Lounge from '../components/Lounge';
-import LinkPage from '../components/LinkPage';
+
+
 import RequireAuth from '../components/RequireAuth';
 import Main from '../pages/Main';
 import Profile from '../components/Profile/Profile'
@@ -38,7 +37,7 @@ const RoutePath = () => {
         {/* we want to protect these routes */}
         <Route element={<RequireAuth allowedRoles={[ROLES.scout,ROLES.writer,ROLES.reviewer]} />}>
           <Route path="complete-profile" element={<Profile/>}/>
-          <Route path="dashboard" element={<Main role={[getCookie('role')]} />}>
+          <Route path="dashboard" element={<Main role={[localStorage.getItem('role')]} />}>
                 {/* <Route path="" element={<UploadForm />} /> */}
                 <Route path="profile" element={<Profile/>} />
                 <Route path="upload" element={<UploadForm/>} />
@@ -46,7 +45,7 @@ const RoutePath = () => {
         </Route>
 
         <Route element={<RequireAuth allowedRoles={[ROLES.writer,ROLES.reviewer]} />}>
-          <Route path="dashboard" element={<Main role={[getCookie('role')]} />}>
+          <Route path="dashboard" element={<Main role={[localStorage.getItem('role')]} />}>
                 {/* <Route path="" element={<UploadForm />} /> */}
                 <Route path="profile" element={<Profile/>} />
                 <Route path="upload" element={<UploadForm/>} />
@@ -56,7 +55,7 @@ const RoutePath = () => {
 
 
         <Route element={<RequireAuth allowedRoles={[ROLES.writer]} />}>
-        <Route path="dashboard" element={<Main role={[getCookie('role')]} />} >
+        <Route path="dashboard" element={<Main role={[localStorage.getItem('role')]} />} >
                 <Route path="profile" element={<Profile/>} />
                 <Route path="upload" element={<UploadForm/>} />
         </Route>
@@ -65,15 +64,13 @@ const RoutePath = () => {
 
 
         <Route element={<RequireAuth allowedRoles={[ROLES.reviewer]} />}>
-        <Route path="dashboard" element={<Main role={[getCookie('role')]} />} >
+        <Route path="dashboard" element={<Main role={[localStorage.getItem('role')]} />} >
                 <Route path="profile" element={<Profile/>} />
                 <Route path="upload" element={<UploadForm/>} />
         </Route>
         </Route>
 
-        <Route element={<RequireAuth allowedRoles={[ROLES.Editor, ROLES.Admin]} />}>
-          <Route path="lounge" element={<Lounge />} />
-        </Route>
+       
 
         {/* catch all */}
         <Route path="*" element={<Missing />} />

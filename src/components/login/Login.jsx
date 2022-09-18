@@ -26,7 +26,10 @@ const Login = () => {
     const [errMsg, setErrMsg] = useState('');
 
     const state = useSelector(state=>state.login)
-    useEffect(() => {
+  useEffect(() => {
+    if (localStorage.getItem('sm.token') && localStorage.getItem('roles'))
+        console.log('authed')
+            // navigate('/dashboard')
         userRef.current.focus();
     }, [])
 

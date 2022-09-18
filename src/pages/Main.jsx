@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet,useNavigate } from 'react-router-dom'
 import Nav from '../components/Nav/Nav'
-const Main = ({role}) => {
+const Main = ({ role }) => {
+  const navigate= useNavigate()
   useEffect(() => {
-    console.log('in main', role)
+  navigate('/dashboard/upload')
   }, []);
   return (
     <>

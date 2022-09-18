@@ -15,7 +15,7 @@ import logo from '../../assets/images/logo.png'
 import { checkLogin, getUserData } from '../../redux/actions/login'
 import { logout } from '../../redux/actions/login'
 import { ROLES } from '../../constants/RoleConstants'
-import { getCookie } from '../../functions'
+import { generateArray, getCookie } from '../../functions'
 
 
 
@@ -39,7 +39,7 @@ const Nav = ({role}) => {
     }
 
    console.log('in nav',role)
-    setUsername(state?.profile?.first_name)
+    setUsername(state?.profile?.first_name|| localStorage.getItem('first_name'))
     setDesignation(getCookie('role'))
     // console.log(role)
   }, []);
@@ -83,7 +83,7 @@ const handleLogout=()=>
         </div> */}
         <div className="navMenu">
          {
-          stateLogin?.user?.roles?.find((r)=> r.includes(ROLES.scout)||r.includes(ROLES.writer)||r.includes(ROLES.reviewer))? 
+          generateArray(localStorage.getItem('roles'))?.find((r)=> r.includes(ROLES.scout)||r.includes(ROLES.writer)||r.includes(ROLES.reviewer))? 
           <>
           <NavLink to="profile" className="navItem" onClick={toggleNav}>
           <ImUserPlus/> Profile
@@ -95,7 +95,7 @@ const handleLogout=()=>
           : <></>}
 
 {
-          stateLogin?.user?.roles?.find((r)=> r.includes(ROLES.writer)||r.includes(ROLES.reviewer))? 
+          generateArray(localStorage.getItem('roles'))?.find((r)=> r.includes(ROLES.writer)||r.includes(ROLES.reviewer))? 
           <>
           <NavLink to="stories" className="navItem" onClick={toggleNav}>
           <RiArticleLine/> Stories
@@ -106,7 +106,7 @@ const handleLogout=()=>
 
 
 
-         { stateLogin?.user?.roles?.find((r)=>r.includes(ROLES.writer)) ?
+         { generateArray(localStorage.getItem('roles'))?.find((r)=>r.includes(ROLES.writer)) ?
           <>
           <NavLink to="agendas" className="navItem" onClick={toggleNav}>
           <FaEquals/>Agendas
@@ -114,7 +114,7 @@ const handleLogout=()=>
           </>
           : <></>
           }
-          {stateLogin?.user?.roles?.find((r)=> r.includes(ROLES.reviewer)) ?
+          {generateArray(localStorage.getItem('roles'))?.find((r)=> r.includes(ROLES.reviewer)) ?
           <>
           <NavLink to="writer" className="navItem" onClick={toggleNav}>
           <FaEquals/>Writers
