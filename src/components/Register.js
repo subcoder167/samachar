@@ -82,6 +82,7 @@ const Register = () => {
                             id="username"
                             ref={userRef}
                             autoComplete="off"
+                            name="email"
                             onChange={(e) => setUser(e.target.value)}
                             value={user}
                             required

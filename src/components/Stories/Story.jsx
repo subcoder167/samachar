@@ -137,7 +137,7 @@ const Story = () => {
       render: (text, record) => (
         <span
           className={
-            `tablePill statusPill` + text === "Under Review"
+            `tablePill statusPill` + text === "under review"
               ? "InProcess"
               : "Active"
           }

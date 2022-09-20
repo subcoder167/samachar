@@ -1,52 +1,56 @@
 import api from "../../api/api";
 import { HTTPCONSTANT } from "../../constants/httpConstants";
+import { stringifyData } from "../../functions";
 import { ActionTypes } from "../constants/ActionTypes";
 import { getUserData } from "./login";
 
 
-export const register=(data)=>async(dispatch)=>
-{
-    
+export const register = (formdata) => async (dispatch) => {
+
   dispatch({
-    type:ActionTypes.REGISTER_ATTEMPT,
+    type: ActionTypes.REGISTER_ATTEMPT,
   })
-      var config = {
-        method: 'post',
-        headers: { 
-          'Content-Type': 'application/json',
-        },
-        data : data
-      };
-     
-      try {
-        const response = await api.post(HTTPCONSTANT.REGISTER,config)
 
-        console.log(JSON.stringify(response?.data));
+  var data = new FormData();
+  data.append('email', formdata.get('email'));
+  data.append('password', formdata.get('password'));
 
-          dispatch({
-            type:ActionTypes.REGISTER_SUCCESS,
-          })
+  var config = {
+    method: 'post',
+    data: JSON.stringify({
+      "email": formdata.get('email'),
+      "password": formdata.get('password')
+    })
+  };
+  try {
+    const response = await api('/register/', config)
 
-        
-    } catch (err) {
-        if (!err?.response) {
-            
-            dispatch({
-              type:ActionTypes.REGISTER_FAIL,
-              payload:"No Server Response"
-            })
-        } else if (err.response?.status === 409) {
-          
-            dispatch({
-              type:ActionTypes.REGISTER_FAIL,
-              payload:"Username exists"
-            })
-        } else {
-          dispatch({
-            type:ActionTypes.REGISTER_FAIL,
-            payload:"Registration failed"
-          })
-        }
-        
+    console.log(JSON.stringify(response?.data));
+
+    dispatch({
+      type: ActionTypes.REGISTER_SUCCESS,
+    })
+
+
+  } catch (err) {
+    if (!err?.response) {
+
+      dispatch({
+        type: ActionTypes.REGISTER_FAIL,
+        payload: "No Server Response"
+      })
+    } else if (err.response?.status === 409) {
+
+      dispatch({
+        type: ActionTypes.REGISTER_FAIL,
+        payload: "Username exists"
+      })
+    } else {
+      dispatch({
+        type: ActionTypes.REGISTER_FAIL,
+        payload: "Registration failed"
+      })
     }
+
+  }
 }
