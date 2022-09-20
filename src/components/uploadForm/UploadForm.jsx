@@ -59,11 +59,13 @@ const UploadForm = () => {
   ));
 
   useEffect(() => {
+    setFile(acceptedFiles[0]);
     if (acceptedFiles.length > 0) {
       setFilesCount(acceptedFiles.length);
     }
     return () => {
       setFilesCount(0);
+      setFile(null);
     };
   }, [acceptedFiles]);
 
@@ -197,7 +199,10 @@ const UploadForm = () => {
 
     var formData = new FormData(e.target);
     formData.append("file", file);
-    formData.append("genre", `${genres}`);
+    formData.append(
+      "genre",
+      genres.map((genre) => genre.value)
+    );
     // formData.append("referrence_fields",`${reference}`);
     if (
       localStorage.getItem("first_name") &&
@@ -205,8 +210,15 @@ const UploadForm = () => {
     ) {
       formData.append(
         "uploaded_by",
+
+        localStorage.getItem("username")
+      );
+      formData.append(
+        "name",
         localStorage.getItem("first_name") + localStorage.getItem("last_name")
       );
+      // console.log(stringifyData(formData));
+
       dispatch(uploadStory(formData));
     }
   };
@@ -216,11 +228,7 @@ const UploadForm = () => {
       uploadForm.current.reset();
     }
   }, [state]);
-  useEffect(() => {
-    if (genres.length > 2)
-      document.getElementById("genreSelect").disabled = true;
-    else document.getElementById("genreSelect").disabled = false;
-  }, [genres]);
+
   return (
     <section>
       <h2 style={{ fontWeight: "bold", textAlign: "center", margin: "30px 0" }}>
@@ -228,7 +236,6 @@ const UploadForm = () => {
       </h2>
       {/* <Dropzone onDrop={onDrop}  accept="application/pdf"/> */}
       <form
-        enctype="multipart/form-data"
         onSubmit={(e) => handleUpload(e)}
         className="uploadForm"
         ref={uploadForm}
@@ -326,7 +333,7 @@ const UploadForm = () => {
             name="referrence_fields"
             styles={colorStyles}
             className="uploadFormInput"
-            placeholder="Add a genre"
+            placeholder="Add references"
             id="referrence_fields"
           />
         </div>

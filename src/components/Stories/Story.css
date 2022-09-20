@@ -18,23 +18,30 @@
     display: flex;
     flex-wrap: wrap;
 }
-.tablePill
+.tablePill ,.statusPill
 {
     background: rgb(189, 189, 189);
     padding: 6px 10px;
     margin: 5px ;
     border-radius: 5px;
 }
+
 .Active
 {
     background: rgb(60, 148, 83) ;
     color:#fff;
+    padding: 6px 10px;
+        margin: 5px;
+        border-radius: 5px;
 
 }
 .InProcess
 {
     background: rgb(218, 178, 32);    
     color:#fff;
+    padding: 6px 10px;
+        margin: 5px;
+        border-radius: 5px;
 }
 .Rejected
 {

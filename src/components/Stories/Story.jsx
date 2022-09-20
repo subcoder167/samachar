@@ -134,7 +134,17 @@ const Story = () => {
       key: "status",
       width: "10px",
       // render: (text,record) =>{text.map((genre)=><span className="tablePill">genre</span>)}
-      render: (text, record) => <span className={`tablePill `}>{text}</span>,
+      render: (text, record) => (
+        <span
+          className={
+            `tablePill statusPill` + text === "Under Review"
+              ? "InProcess"
+              : "Active"
+          }
+        >
+          {text}
+        </span>
+      ),
     },
     {
       title: "Priority",
