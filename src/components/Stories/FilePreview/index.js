@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { BsArrowLeft } from "react-icons/bs";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { generateArray } from "../../../functions";
+import { fetchStory } from "../../../redux/actions/story";
 
 import "./filePreview.css";
 const FilePreview = (props) => {
   const [file, setFile] = useState();
   const [storyState, setStoryState] = useState();
+  const dispatch = useDispatch();
+  const story = useSelector((state) => state?.story?.stories);
+
   const comments = [
     {
       name: "John Doe",
@@ -55,10 +59,13 @@ const FilePreview = (props) => {
       comment: "It's not who I am underneath, but what I do that defines me.",
     },
   ];
-  const story = useSelector((state) => state?.story?.stories);
+
+  if (!story || story.length == 0) {
+    dispatch(fetchStory());
+  }
   useEffect(() => {
-    setFile(`http://147.182.236.95:8000/media/${story[props.index]?.file}`);
-    setStoryState(story[props.index]);
+    setFile(`http://147.182.236.95:8000/media/${story[props?.index]?.file}`);
+    setStoryState(story[props?.index]);
   }, [props]);
   return (
     <div className="previewWrapper">
@@ -76,32 +83,37 @@ const FilePreview = (props) => {
             src="http://147.182.236.95:8000/media/scout_files/Ref_No._TIUWBExam_Cell-0160-2022_YXvQgIM.pdf&embedded=true"
             alt="file"
             className="fileFrame"
+            title={JSON.stringify(file)}
           />
         </div>
         <div className="previewComments col-md-4">
           <div className="metaData">
             <p>
               <strong>File:</strong> &nbsp;
-              {/* {storyState?.file?.split("scout_files/")[1]} */}
+              {story[props?.index]?.file?.split("scout_files/")[1]}
             </p>
             <p>
               <strong>Language:</strong> &nbsp;
-              {/* {storyState?.language?.toUpperCase()} */}
+              {story[props?.index]?.language?.toUpperCase()}
             </p>
 
             <p>
               <strong>Genre:</strong> &nbsp;
-              {/* {generateArray(storyState?.genre).map((genre) => (
+              {generateArray(story[props?.index]?.genre).map((genre) => (
                 <>{genre} &nbsp;</>
-              ))} */}
+              ))}
             </p>
             <p>
               <strong>Geography:</strong> &nbsp;
-              {/* {storyState.geography?.toUpperCase()} */}
+              {story[props?.index]?.geography?.toUpperCase()}
             </p>
             <p>
               <strong>Uploaded By:</strong> &nbsp;
-              {/* {storyState?.uploaded_by_id} */}
+              {story[props?.index]?.uploaded_by_id}
+            </p>
+            <p>
+              <strong>Uploaded At:</strong> &nbsp;
+              {story[props?.index]?.uploaded_at}
             </p>
           </div>
           <div className="commentSectionWrapper">

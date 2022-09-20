@@ -20,7 +20,7 @@ const Story = () => {
   });
   const [msg, setMsg] = useState("");
   const [data, setData] = useState([]);
-
+  const [previewOpen, setPreviewOpen] = useState(false);
   const state = useSelector((state) => state.story);
   const dispatch = useDispatch();
 
@@ -177,10 +177,12 @@ const Story = () => {
 
   const openPreview = (index) => {
     setFileIndex(index);
+    setPreviewOpen(true);
     preview.current.classList.add("open");
   };
 
   const closePreview = () => {
+    setPreviewOpen(false);
     preview.current.classList.remove("open");
   };
 
@@ -253,7 +255,9 @@ const Story = () => {
         )}
       </div>
       <div className="filePreviewWrapper" ref={preview}>
-        <FilePreview closePreview={closePreview} index={fileIndex} />
+        {previewOpen && (
+          <FilePreview closePreview={closePreview} index={fileIndex} />
+        )}
       </div>
     </div>
   );
