@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Table, Pagination, Radio, Divider, Tag } from "antd";
 import { RiFilter2Fill, RiSearchLine } from "react-icons/ri";
+import { TiTick } from "react-icons/ti";
 import { useDispatch, useSelector } from "react-redux";
 import Spinner from "react-bootstrap/Spinner";
 import moment from "moment";
@@ -8,12 +9,19 @@ import "antd/dist/antd.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import FilePreview from "./FilePreview";
-import { fetchStory } from "../../redux/actions/story";
-import { generateArray } from "../../functions";
+import { fetchStory, uploadStory } from "../../redux/actions/story";
+import { generateArray, setCookie } from "../../functions";
 import "./Story.css";
 const Story = () => {
   const [trial, setTrial] = useState(false);
   const [fileIndex, setFileIndex] = useState(null);
+  const [RowIndex, setRowIndex] = useState(null);
+  const [PageSize, setPageSize] = useState(8);
+
+  const [paginateStatus, setPaginateStatus] = useState({
+    current: 1,
+    pageSize: PageSize,
+  });
   const [select, setSelect] = useState({
     selectedRowKeys: [],
     loading: false,
@@ -31,20 +39,44 @@ const Story = () => {
       key: "priority",
       width: "4px",
       // render: (text,record) =>{text.map((genre)=><span className="tablePill">genre</span>)}
-      render: (text, record) => (
-        <input
-          className="prty"
-          type="checkbox"
-          name="priority"
-          value={!record.priority ? false : true}
-        />
-      ),
+      render: (text, record) =>
+        // <input
+        //   className="prty"
+        //   type="checkbox"
+        //   name="priority"
+        //   value={Boolean(record.priority)}
+        //   disabled
+        //   // onChange={() => {
+        //   //   record?.priority === 0
+        //   //     ? handlePriority(record, 1)
+        //   //     : handlePriority(record, 0);
+        //   // }}
+        // />
+        Boolean(record.priority) ? (
+          <button className="btn btn-success" disabled>
+            <TiTick />
+          </button>
+        ) : (
+          <button className="btn btn-secondary" disabled>
+            &times;
+          </button>
+        ),
+      sorter: (a, b) => new Date(a.priority) - new Date(b.priority),
     },
     {
       title: "Title",
       dataIndex: "title",
       key: "title",
-      width: "25px",
+      width: "10px",
+      render: (text, record) => (
+        <div onClick={() => handleSubmit(RowIndex)}>
+          {text
+            ? text.length > 20
+              ? text.slice(0, 20) + "..."
+              : text
+            : "empty title"}
+        </div>
+      ),
     },
     {
       title: "Genre",
@@ -94,7 +126,7 @@ const Story = () => {
       render: (text, record) => (
         <span
           className={
-            `tablePill statusPill` + text === "under review"
+            `tablePill statusPill` + text === "Under Review"
               ? "InProcess"
               : "Active"
           }
@@ -182,7 +214,9 @@ const Story = () => {
   const preview = useRef();
 
   const openPreview = (index) => {
-    setFileIndex(index);
+    setFileIndex(
+      parseInt((paginateStatus.current - 1) * paginateStatus.pageSize + index)
+    );
     setPreviewOpen(true);
     preview.current.classList.add("open");
   };
@@ -211,6 +245,32 @@ const Story = () => {
     //   }
     console.log(searchArray);
   };
+  const handleSubmit = (state) => {
+    var temp_record = JSON.parse(
+      JSON.stringify(
+        data[
+          parseInt(
+            (paginateStatus.current - 1) * paginateStatus.pageSize + RowIndex
+          )
+        ]
+      )
+    );
+    setCookie(
+      "currentStatus",
+      data[
+        parseInt(
+          (paginateStatus.current - 1) * paginateStatus.pageSize + RowIndex
+        )
+      ].status
+    );
+
+    delete temp_record.file;
+    if (!temp_record.status.includes(["Accepted", "Rejected"]))
+      temp_record.status = "InProcess";
+    dispatch(uploadStory(temp_record));
+    openPreview(RowIndex);
+  };
+
   return (
     <div>
       <div className="pageTitle">All Stories</div>
@@ -241,7 +301,11 @@ const Story = () => {
               scroll={{
                 x: 1500,
               }}
-              pagination={{ pageSize: 8 }}
+              pagination={{
+                defaultCurrent: paginateStatus.current,
+                pageSize: 8,
+              }}
+              onChange={(pagination) => setPaginateStatus(pagination)}
               sticky
               rowClassName={(record) =>
                 (record.status == "refused" || record.status == "verified") &&
@@ -249,16 +313,20 @@ const Story = () => {
               }
               onRow={(record, rowIndex) => {
                 return {
-                  onClick: () => {
-                    openPreview(rowIndex);
+                  onMouseEnter: () => {
+                    setRowIndex(rowIndex);
                   },
                 };
               }}
             />
-
-            {/* <Pagination defaultCurrent={1} total={data.length} style={{marginTop:30}} /> */}
           </div>
         )}
+        <button
+          className="btn btn-primary"
+          onClick={() => dispatch(fetchStory())}
+        >
+          Refresh
+        </button>
       </div>
       <div className="filePreviewWrapper" ref={preview}>
         {previewOpen && (

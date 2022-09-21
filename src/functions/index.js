@@ -10,6 +10,15 @@ export const stringifyData = (formData) => {
   return JSON.stringify(data)
 }
 
+export const generateObject = (formData) => {
+  var data = {}
+  for (var pair of formData.entries()) {
+    data[pair[0]] = pair[1]
+  }
+  return JSON.stringify(data)
+}
+
+
 export const getAuth = () => {
   return {
     token: localStorage.getItem('token'),

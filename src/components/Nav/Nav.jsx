@@ -52,6 +52,10 @@ const Nav = ({ role }) => {
     navigate("/login");
     localStorage.clear();
   };
+  useEffect(() => {
+    if (open) navBar.current.classList.add("open");
+    else navBar.current.classList.remove("open");
+  }, [open]);
 
   return (
     <>
@@ -81,14 +85,13 @@ const Nav = ({ role }) => {
                   <ImUserPlus />
                   <span className="openLabel">Profile</span>
                 </NavLink>
-                
               </>
             ) : (
               <></>
             )}
-            
-            {generateArray(localStorage.getItem("roles"))?.find(
-              (r) => r.includes(ROLES.scout)
+
+            {generateArray(localStorage.getItem("roles"))?.find((r) =>
+              r.includes(ROLES.scout)
             ) ? (
               <>
                 <NavLink to="upload" className="navItem" onClick={toggleNav}>
@@ -112,7 +115,6 @@ const Nav = ({ role }) => {
             ) : (
               <></>
             )}
-
 
             {generateArray(localStorage.getItem("roles"))?.find((r) =>
               r.includes(ROLES.writer)

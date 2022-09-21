@@ -147,7 +147,12 @@ const UploadForm = () => {
       border: "2px solid #e5e5e5",
     }),
     option: (styles, { data, isDisabled, isFocused, isSelected }) => {
-      return { ...styles, color: data.color, width: "100%", padding: 0 };
+      return {
+        ...styles,
+        color: data.color,
+        width: "100%",
+        padding: 5,
+      };
     },
     multiValue: (styles, { data }) => {
       return {
@@ -205,7 +210,6 @@ const UploadForm = () => {
 
     var formData = new FormData(e.target);
     formData.append("file", file);
-    formData.append("title", title);
     formData.append(
       "genre",
       genres.map((genre) => genre.value)
@@ -287,7 +291,7 @@ const UploadForm = () => {
               options={geographyOptions}
               name="geography"
               styles={colorStyles}
-              className="uploadFormInput"
+              // className="uploadFormInput"
               placeholder="Select geography"
               id="gographySelect"
               required
@@ -305,7 +309,7 @@ const UploadForm = () => {
               backspaceRemovesValue
               styles={colorStyles}
               name="language"
-              className="uploadFormInput"
+              // className="uploadFormInput"
               placeholder="Enter Language"
               id="languageSelect"
               required
@@ -320,7 +324,6 @@ const UploadForm = () => {
             className="form-control"
             id="Title"
             name="title"
-            onInputChange={handleTitleChange}
             placeholder="Enter title of the story..."
             required
           />
@@ -331,7 +334,6 @@ const UploadForm = () => {
           <Select
             options={genreOptions}
             onChange={(v) => (v.length < 3 ? setGenres(v) : null)}
-            onInputChange={handleGenreChange}
             isMulti
             // name="genre"
             value={genres}
