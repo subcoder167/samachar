@@ -81,6 +81,16 @@ const Nav = ({ role }) => {
                   <ImUserPlus />
                   <span className="openLabel">Profile</span>
                 </NavLink>
+                
+              </>
+            ) : (
+              <></>
+            )}
+            
+            {generateArray(localStorage.getItem("roles"))?.find(
+              (r) => r.includes(ROLES.scout)
+            ) ? (
+              <>
                 <NavLink to="upload" className="navItem" onClick={toggleNav}>
                   <FiEdit />
                   <span className="openLabel">Upload</span>
@@ -102,6 +112,7 @@ const Nav = ({ role }) => {
             ) : (
               <></>
             )}
+
 
             {generateArray(localStorage.getItem("roles"))?.find((r) =>
               r.includes(ROLES.writer)

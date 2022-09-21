@@ -26,10 +26,31 @@ const Story = () => {
 
   const columns = [
     {
+      title: "Priority",
+      dataIndex: "priority",
+      key: "priority",
+      width: "4px",
+      // render: (text,record) =>{text.map((genre)=><span className="tablePill">genre</span>)}
+      render: (text, record) => (
+        <input
+          className="prty"
+          type="checkbox"
+          name="priority"
+          value={!record.priority ? false : true}
+        />
+      ),
+    },
+    {
+      title: "Title",
+      dataIndex: "title",
+      key: "title",
+      width: "25px",
+    },
+    {
       title: "Genre",
       dataIndex: "genre",
       key: "genre",
-      width: "10px",
+      width: "15px",
       // render: (text,record) =>{text.map((genre)=><span className="genrePill">genre</span>)}
       render: (text, record) => (
         <div className="tablePillWrapper">
@@ -55,6 +76,32 @@ const Story = () => {
       // filterSearch: true,
       onFilter: (value, record) => generateArray(record.genre)?.includes(value),
       filterIcon: () => <RiFilter2Fill size={16} />,
+    },
+    {
+      title: "Uploaded",
+      dataIndex: "uploaded_at",
+      key: "uploaded_at",
+      width: "10px",
+      render: (text, record) => <span>{moment(text).format("ll")}</span>,
+      sorter: (a, b) => new Date(a.uploaded_at) - new Date(b.uploaded_at),
+    },
+    {
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+      width: "10px",
+      // render: (text,record) =>{text.map((genre)=><span className="tablePill">genre</span>)}
+      render: (text, record) => (
+        <span
+          className={
+            `tablePill statusPill` + text === "under review"
+              ? "InProcess"
+              : "Active"
+          }
+        >
+          {text}
+        </span>
+      ),
     },
     {
       title: "geography",
@@ -115,50 +162,9 @@ const Story = () => {
     },
     {
       title: "Name",
-      dataIndex: "uploaded_by_id",
-      key: "uploaded_by_id",
+      dataIndex: "name",
+      key: "name",
       width: "10px",
-    },
-
-    {
-      title: "Uploaded",
-      dataIndex: "uploaded_at",
-      key: "uploaded_at",
-      width: "10px",
-      render: (text, record) => <span>{moment(text).format("ll")}</span>,
-      sorter: (a, b) => new Date(a.uploaded_at) - new Date(b.uploaded_at),
-    },
-    {
-      title: "Status",
-      dataIndex: "status",
-      key: "status",
-      width: "10px",
-      // render: (text,record) =>{text.map((genre)=><span className="tablePill">genre</span>)}
-      render: (text, record) => (
-        <span
-          className={
-            `tablePill statusPill` + text === "under review"
-              ? "InProcess"
-              : "Active"
-          }
-        >
-          {text}
-        </span>
-      ),
-    },
-    {
-      title: "Priority",
-      dataIndex: "priority",
-      key: "priority",
-      width: "10px",
-      // render: (text,record) =>{text.map((genre)=><span className="tablePill">genre</span>)}
-      render: (text, record) => (
-        <input
-          type="checkbox"
-          name="priority"
-          value={!record.priority ? false : true}
-        />
-      ),
     },
   ];
 

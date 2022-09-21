@@ -15,6 +15,7 @@ const UploadForm = () => {
   const [trial, setTrial] = useState(false);
   const [Msg, setMsg] = useState("");
   const [language, setLanguage] = useState(null);
+  const [title, setTitle] = useState("");
   const [genres, setGenres] = useState([]);
   const [reference, setReference] = useState([]);
   const [comment, setComment] = useState(null);
@@ -185,6 +186,11 @@ const UploadForm = () => {
     //  setGenres(newValue.map((item) => item.value));
     console.log(reference);
   };
+  const handleTitleChange = (newValue) => {
+    setGenres(title.value);
+    //  setGenres(newValue.map((item) => item.value));
+    console.log(title);
+  };
   // const handleLanguageChange = (newValue) => {
 
   //   // if(Array.isArray(newValue))
@@ -199,6 +205,7 @@ const UploadForm = () => {
 
     var formData = new FormData(e.target);
     formData.append("file", file);
+    formData.append("title", title);
     formData.append(
       "genre",
       genres.map((genre) => genre.value)
@@ -304,6 +311,19 @@ const UploadForm = () => {
               required
             />
           </div>
+        </div>
+
+        <div className="form-group my-2">
+          <label for="Title">Title</label>
+          <input
+            type="text"
+            className="form-control"
+            id="Title"
+            name="title"
+            onInputChange={handleTitleChange}
+            placeholder="Enter title of the story..."
+            required
+          />
         </div>
 
         <div className="form-group my-2">

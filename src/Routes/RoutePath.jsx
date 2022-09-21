@@ -48,7 +48,7 @@ const RoutePath = () => {
           <Route path="dashboard" element={<Main role={[localStorage.getItem('role')]} />}>
                 {/* <Route path="" element={<UploadForm />} /> */}
                 <Route path="profile" element={<Profile/>} />
-                <Route path="upload" element={<UploadForm/>} />
+                {/* <Route path="upload" element={<UploadForm/>} /> */}
                 <Route path="stories" element={<Story/>} />
           </Route>
         </Route>
@@ -57,7 +57,7 @@ const RoutePath = () => {
         <Route element={<RequireAuth allowedRoles={[ROLES.writer]} />}>
         <Route path="dashboard" element={<Main role={[localStorage.getItem('role')]} />} >
                 <Route path="profile" element={<Profile/>} />
-                <Route path="upload" element={<UploadForm/>} />
+                {/* <Route path="upload" element={<UploadForm/>} /> */}
         </Route>
         
         </Route>
@@ -66,7 +66,7 @@ const RoutePath = () => {
         <Route element={<RequireAuth allowedRoles={[ROLES.reviewer]} />}>
         <Route path="dashboard" element={<Main role={[localStorage.getItem('role')]} />} >
                 <Route path="profile" element={<Profile/>} />
-                <Route path="upload" element={<UploadForm/>} />
+                {/* <Route path="upload" element={<UploadForm/>} /> */}
         </Route>
         </Route>
 

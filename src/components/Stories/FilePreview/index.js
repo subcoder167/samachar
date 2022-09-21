@@ -69,18 +69,18 @@ const FilePreview = (props) => {
   }, [props]);
   return (
     <div className="previewWrapper">
-      <div className="previewTop">
+      {/* <div className="previewTop">
         <div className="filePreviewcloseBtn" onClick={props?.closePreview}>
           <BsArrowLeft color="#fff" size={20} />
         </div>
         <div className="fileName">
           {story[props?.index]?.file?.split("scout_files/")[1]}
         </div>
-      </div>
+      </div> */}
       <div className="previewSection">
         <div className="filePreview col-md-8">
           <iframe
-            src="http://147.182.236.95:8000/media/scout_files/Ref_No._TIUWBExam_Cell-0160-2022_YXvQgIM.pdf&embedded=true"
+            src={file}
             alt="file"
             className="fileFrame"
             title={JSON.stringify(file)}
@@ -89,23 +89,24 @@ const FilePreview = (props) => {
         <div className="previewComments col-md-4">
           <div className="metaData">
             <p>
-              <strong>File:</strong> &nbsp;
-              {story[props?.index]?.file?.split("scout_files/")[1]}
+              <strong>Title:</strong> &nbsp;
+              <input className="mdInput" defaultValue={story[props?.index]?.file?.split("scout_files/")[1]} />
             </p>
             <p>
               <strong>Language:</strong> &nbsp;
-              {story[props?.index]?.language?.toUpperCase()}
+              <input className="mdInput" defaultValue={story[props?.index]?.language?.toUpperCase()} />
             </p>
 
             <p>
               <strong>Genre:</strong> &nbsp;
-              {generateArray(story[props?.index]?.genre).map((genre) => (
+              <input className="mdInput" defaultValue={generateArray(story[props?.index]?.genre).map((genre) => (
                 <>{genre} &nbsp;</>
-              ))}
+              ))} />
             </p>
             <p>
               <strong>Geography:</strong> &nbsp;
-              {story[props?.index]?.geography?.toUpperCase()}
+              
+              <input className="mdInput" defaultValue={story[props?.index]?.geography?.toUpperCase()} />
             </p>
             <p>
               <strong>Uploaded By:</strong> &nbsp;
@@ -113,10 +114,14 @@ const FilePreview = (props) => {
             </p>
             <p>
               <strong>Uploaded At:</strong> &nbsp;
-              {story[props?.index]?.uploaded_at}
+              <input className="mdInput" defaultValue={story[props?.index]?.uploaded_at} />
+            </p>
+            <p>
+            <strong>Comments:</strong>
             </p>
           </div>
           <div className="commentSectionWrapper">
+            
             <div className="commentSection ">
               {comments.map((comment) => (
                 <div className="commentWrapper">
@@ -129,9 +134,15 @@ const FilePreview = (props) => {
               ))}
             </div>
             <form className="addCommentForm">
-              <input type="text" placeholder="Share your thoughts" />
+              <input className="commentInput" type="text" placeholder="Share your thoughts" />
               <button type="submit">Send</button>
             </form>
+          </div>
+          <div className="buttons">
+            <p>Save</p>
+            <p>Accept</p>
+            <p>Reject</p>
+            <p onClick={props?.closePreview}>Go Back</p>
           </div>
         </div>
       </div>
