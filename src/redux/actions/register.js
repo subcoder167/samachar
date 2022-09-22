@@ -17,10 +17,11 @@ export const register = (formdata) => async (dispatch) => {
 
   var config = {
     method: 'post',
-    data: JSON.stringify({
-      "email": formdata.get('email'),
-      "password": formdata.get('password')
-    })
+    headers:
+    {
+      'Content-Type': 'application/json',
+    },
+    data: formdata
   };
   try {
     const response = await api('/register/', config)
