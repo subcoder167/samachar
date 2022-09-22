@@ -14,6 +14,7 @@ const FilePreview = (props) => {
   const [disable, setDisable] = useState(false);
   const dispatch = useDispatch();
   const story = useSelector((state) => state?.story?.stories);
+  const state = useSelector((state) => state?.story?.state);
   const [genres, setGenres] = useState([
     {
       label: story[props?.index].genre.split(",")[0],
@@ -147,26 +148,19 @@ const FilePreview = (props) => {
     setFile(`http://147.182.236.95:8000/media/${story[props?.index]?.file}`);
     setStoryState(story[props?.index]);
 
-    if (
-      getCookie("currentStatus") === Status.accepted ||
-      getCookie("currentStatus") === Status.rejected
-    )
+    if (state === Status.accepted || state === Status.rejected)
       setDisable(true);
     else setDisable(false);
-    return () => {
-      eraseCookie("currentStatus");
-    };
   }, [props]);
 
   const handleSubmit = (state) => {
-    if ((!comment || comment == "") && state != getCookie("currentStatus")) {
+    if ((!comment || comment == "") && state != state) {
       alert("Write a comment");
       return;
     }
     var temp_record = JSON.parse(JSON.stringify(story[props?.index]));
 
     var formData = new FormData(previewForm.current);
-    var uploadData = new FormData();
 
     delete temp_record.file;
 
@@ -207,10 +201,10 @@ const FilePreview = (props) => {
     delete temp_record.file;
 
     // setters
-    temp_record.status = getCookie("currentStatus");
+    temp_record.status = state;
 
-    console.log(temp_record);
-    // dispatch(uploadStory(JSON.stringify(temp_record)));
+    console.log(temp_record.status);
+    dispatch(uploadStory(JSON.stringify(temp_record)));
   };
 
   return (

@@ -9,7 +9,7 @@ import "antd/dist/antd.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import FilePreview from "./FilePreview";
-import { fetchStory, uploadStory } from "../../redux/actions/story";
+import { fetchStory, setState, uploadStory } from "../../redux/actions/story";
 import { generateArray, setCookie } from "../../functions";
 import { Status } from "../../constants/statusConstants";
 import "./Story.css";
@@ -70,7 +70,10 @@ const Story = () => {
       key: "title",
       width: "10px",
       render: (text, record) => (
-        <div onClick={() => handleSubmit(RowIndex)}>
+        <div
+          onClick={() => handleSubmit(RowIndex)}
+          style={{ cursor: "pointer" }}
+        >
           {text
             ? text.length > 20
               ? text.slice(0, 20) + "..."
@@ -251,19 +254,19 @@ const Story = () => {
         ]
       )
     );
-    setCookie(
-      "currentStatus",
-      data[
-        parseInt(
-          (paginateStatus.current - 1) * paginateStatus.pageSize + RowIndex
-        )
-      ].status
+    dispatch(
+      setState(
+        data[
+          parseInt(
+            (paginateStatus.current - 1) * paginateStatus.pageSize + RowIndex
+          )
+        ].status
+      )
     );
 
     delete temp_record.file;
-    if (temp_record.status != "Accepted" && temp_record.status != "Rejrcted") {
+    if (temp_record.status !== "Accepted" || temp_record.status !== "Rejected")
       temp_record.status = "In Process";
-    }
     dispatch(uploadStory(temp_record));
     openPreview(RowIndex);
   };
@@ -300,7 +303,7 @@ const Story = () => {
               }}
               pagination={{
                 defaultCurrent: paginateStatus.current,
-                pageSize: 8,
+                pageSize: PageSize,
               }}
               onChange={(pagination) => setPaginateStatus(pagination)}
               sticky

@@ -83,6 +83,7 @@ export const fetchStory = () => async (dispatch) => {
         }
     };
 
+    localStorage.removeItem('currentStatus')
     try {
         dispatch({ type: ActionTypes.FETCH_ALL_STORIES_ATTEMPT })
 
@@ -130,4 +131,20 @@ export const fetchStory = () => async (dispatch) => {
         }
 
     }
+}
+
+export const setState = (state) => async (dispatch) => {
+    dispatch(
+        {
+            type: ActionTypes.SET_STATUS,
+            payload: state
+        }
+    )
+}
+export const unsetState = () => async (dispatch) => {
+    dispatch(
+        {
+            type: ActionTypes.UNSET_STATUS
+        }
+    )
 }

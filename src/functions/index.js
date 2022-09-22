@@ -51,7 +51,7 @@ export const eraseAuth = () => {
 }
 
 
-export const setCookie = (name, value, expires) => {
+export const setCookie = (name, value, expires = 24 * 60 * 60 * 1000) => {
   // var expires = "";
   // if (days) {
   //     var date = new Date();
