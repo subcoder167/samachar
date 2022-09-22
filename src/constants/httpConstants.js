@@ -1,10 +1,10 @@
 export const HTTPCONSTANT =
 {
     // LOGIN: '/login/',
-    LOGIN: '/',
+    LOGIN: '/login/',
     REGISTER: '/register/',
     PROFILE_UPDATE: '/profile_update/',
-    STORY_UPLOAD: '/s_upload/',
-    FETCH_ALL_STORY: '/s_upload',
+    STORY_UPLOAD: '/scout/s_upload/',
+    FETCH_ALL_STORY: '/scout/s_upload/',
 
 }
