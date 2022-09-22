@@ -412,19 +412,25 @@ const FilePreview = (props) => {
             <div className="commentSectionWrapper">
               <div className="commentSection ">
                 {/* {JSON.stringify(story[props?.index]?.writer_comments)} */}
-                {story[props?.index]?.writer_comments == {}
-                  ? "Nothing to show here"
-                  : story[props?.index]?.writer_comments?.map((comment) => (
-                      <div className="commentWrapper">
-                        <div className="commenterProf">
-                          <div className="name">{comment?.name}</div>
-                          <div className="nole">
-                            {moment(comment?.timestamp).format("l")}
-                          </div>
+                {JSON.stringify(story[props?.index]?.writer_comments) ===
+                "{}" ? (
+                  <>Nothing to show here</>
+                ) : (
+                  // <>Comments available</>
+                  story[props?.index]?.writer_comments?.map((comment) => (
+                    <div className="commentWrapper">
+                      <div className="commenterProf">
+                        <div className="name">
+                          <strong>{comment?.name}</strong>
                         </div>
-                        <div className="comment">{comment?.comment}</div>
+                        <div className="role">
+                          <sup> {moment(comment?.timestamp).format("l")}</sup>
+                        </div>
                       </div>
-                    ))}
+                      <div className="comment">{comment?.comment}</div>
+                    </div>
+                  ))
+                )}
               </div>
 
               <input

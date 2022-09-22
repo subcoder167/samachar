@@ -8,7 +8,7 @@ import Dropzone from "../dragndrop/Dropzone";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./uploadForm.css";
 import { uploadStory } from "../../redux/actions/story";
-import { stringifyData } from "../../functions";
+import { generateObject, stringifyData } from "../../functions";
 import pdf from "../../assets/images/pdf.png";
 const UploadForm = () => {
   const [file, setFile] = useState();
@@ -215,23 +215,21 @@ const UploadForm = () => {
       genres.map((genre) => genre.value)
     );
     // formData.append("referrence_fields",`${reference}`);
-    if (
-      localStorage.getItem("first_name") &&
-      localStorage.getItem("last_name")
-    ) {
-      formData.append(
-        "uploaded_by",
 
-        localStorage.getItem("username")
-      );
-      formData.append(
-        "name",
-        localStorage.getItem("first_name") + localStorage.getItem("last_name")
-      );
-      // console.log(stringifyData(formData));
+    formData.append(
+      "uploaded_by",
 
-      dispatch(uploadStory(formData));
-    }
+      localStorage.getItem("username")
+    );
+    formData.append(
+      "name",
+      localStorage.getItem("first_name") +
+        " " +
+        localStorage.getItem("last_name")
+    );
+    console.log(generateObject(formData));
+
+    dispatch(uploadStory(formData));
   };
 
   useEffect(() => {
