@@ -145,7 +145,7 @@ const FilePreview = (props) => {
   // };
 
   useEffect(() => {
-    setFile(`http://147.182.236.95:8000/media/${story[props?.index]?.file}`);
+    setFile(`https://docs.google.com/gview?url=https://sourrce.dojoapi.co.in/media/${story[props?.index]?.file}&embedded=true`);
     setStoryState(story[props?.index]);
 
     if (state === Status.accepted || state === Status.rejected)
