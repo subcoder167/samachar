@@ -2,10 +2,16 @@ import React, { useEffect, useRef, useState } from "react";
 import { BsArrowLeft } from "react-icons/bs";
 import Select from "react-select";
 import { useSelector, useDispatch } from "react-redux";
-import { generateArray, getCookie } from "../../../functions";
+import {
+  generateArray,
+  generateFormData,
+  generateObject,
+  getCookie,
+} from "../../../functions";
 import { fetchStory, uploadStory } from "../../../redux/actions/story";
 
 import "./filePreview.css";
+import moment from "moment/moment";
 const FilePreview = (props) => {
   const [file, setFile] = useState();
   const [storyState, setStoryState] = useState();
@@ -32,10 +38,11 @@ const FilePreview = (props) => {
     value: story[props?.index]?.language,
   });
   const [priority, setPriority] = useState({
-    label: Boolean(story[props?.index]?.priority),
+    label: story[props?.index]?.priority === 0 ? "False" : "True",
     value: story[props?.index]?.priority,
   });
   const [comment, setComment] = useState(null);
+  const [oldComment, setOldComment] = useState(null);
 
   const previewForm = useRef();
   const colorStyles = {
@@ -192,53 +199,77 @@ const FilePreview = (props) => {
   useEffect(() => {
     setFile(`http://147.182.236.95:8000/media/${story[props?.index]?.file}`);
     setStoryState(story[props?.index]);
+    setOldComment(story[props?.index]?.writer_comments);
+    generateComments();
   }, [props]);
 
+  const commentDiv = (id, timestamp, comment) => {
+    return (
+      <div>
+        <p>{id}</p>
+        <p>{timestamp}</p>
+        <p>{comment}</p>
+      </div>
+    );
+  };
+  const generateComments = () => {
+    if (oldComment?.id?.length > 0)
+      for (let i = 0; i < oldComment?.id?.length; i++) {
+        oldComment.id.map((e) => console.log(e));
+      }
+  };
+
   const handleSubmit = (state) => {
-    if ((!comment || comment == " ") && state != story[props?.index]) {
+    if ((!comment || comment == "") && state != getCookie("currentStatus")) {
       alert("Write a comment");
       return;
     }
     var temp_record = JSON.parse(JSON.stringify(story[props?.index]));
 
     var formData = new FormData(previewForm.current);
+    var uploadData = new FormData();
 
     delete temp_record.file;
 
     // setters
     temp_record.title = formData.get("title");
     temp_record.language = formData.get("language");
-    temp_record.genre = genres.map((genre) => genre.value).toString();
+    temp_record.genre = genres?.map((genre) => genre?.value).toString();
     temp_record.geography = geography?.value;
-    temp_record.title = formData.get("title");
     temp_record.status = state;
     temp_record.priority = priority.value ? 1 : 0;
-    temp_record.writer_comments = {
-      name:
-        temp_record.writer_comments?.name.length < 1
-          ? temp_record.writer_comments?.name?.push(
-              localStorage.getItem("first_name") +
-                localStorage.getItem("last_name")
-            )
-          : [
-              localStorage.getItem("first_name") +
-                localStorage.getItem("last_name"),
-            ],
-      timestamp:
-        temp_record.writer_comments?.timestamp.length < 1
-          ? temp_record.writer_comments?.timestamp?.push(
-              Date.now().toLocaleString()
-            )
-          : [Date.now().toLocaleString()],
+    // uploadData.append("id", temp_record.id);
+    // uploadData.append("title", formData.get("title"));
+    // uploadData.append("language", formData.get("language"));
+    // uploadData.append("genre", genres?.map((genre) => genre?.value).toString());
+    // uploadData.append("geography", geography?.value);
+    // uploadData.append("status", state);
+    // uploadData.append("priority", priority.value ? 1 : 0);
 
-      comment:
-        temp_record.writer_comments?.comment.length < 1
-          ? temp_record.writer_comments?.comment?.push(comment)
-          : [comment],
-    };
+    if (temp_record.writer_comments == {}) {
+      temp_record.writer_comments = [
+        {
+          name:
+            localStorage.getItem("first_name") +
+            localStorage.getItem("last_name"),
+          timestamp: Date.now(),
+          comment: comment,
+        },
+      ];
+    } else
+      temp_record.writer_comments = Array(temp_record?.writer_comments)?.concat(
+        {
+          name:
+            localStorage.getItem("first_name") +
+            localStorage.getItem("last_name"),
+          timestamp: Date.now(),
+          comment: comment,
+        }
+      );
 
+    uploadData.append("writer_comments", temp_record.writer_comments);
     console.log(temp_record);
-    dispatch(uploadStory(temp_record));
+    dispatch(uploadStory(JSON.stringify(temp_record)));
     document.getElementById("writerCommentInput").value = "";
 
     // [
@@ -247,7 +278,21 @@ const FilePreview = (props) => {
     // ];
     console.log(temp_record);
   };
+  const handleReturn = () => {
+    var temp_record = JSON.parse(JSON.stringify(story[props?.index]));
 
+    delete temp_record.file;
+
+    // setters
+    temp_record.status = getCookie("currentStatus");
+
+    console.log(temp_record);
+    dispatch(uploadStory(JSON.stringify(temp_record)));
+  };
+
+  useEffect(() => {
+    console.log(comment);
+  }, [comment]);
   return (
     <div className="previewWrapper">
       {/* <div className="previewTop">
@@ -331,8 +376,8 @@ const FilePreview = (props) => {
                 <strong>Priority:</strong> &nbsp;
                 <Select
                   options={[
-                    { label: "False", value: false },
-                    { label: "True", value: true },
+                    { label: "False", value: 0 },
+                    { label: "True", value: 1 },
                   ]}
                   name="priority"
                   value={priority}
@@ -366,15 +411,20 @@ const FilePreview = (props) => {
             </div>
             <div className="commentSectionWrapper">
               <div className="commentSection ">
-                {/* {comments?.map((comment) => (
-                  <div className="commentWrapper">
-                    <div className="commenterProf">
-                      <div className="name">{comment.name}</div>
-                      <div className="nole">{comment.post}</div>
-                    </div>
-                    <div className="comment">{comment.comment}</div>
-                  </div>
-                ))} */}
+                {/* {JSON.stringify(story[props?.index]?.writer_comments)} */}
+                {story[props?.index]?.writer_comments == {}
+                  ? "Nothing to show here"
+                  : story[props?.index]?.writer_comments?.map((comment) => (
+                      <div className="commentWrapper">
+                        <div className="commenterProf">
+                          <div className="name">{comment?.name}</div>
+                          <div className="nole">
+                            {moment(comment?.timestamp).format("l")}
+                          </div>
+                        </div>
+                        <div className="comment">{comment?.comment}</div>
+                      </div>
+                    ))}
               </div>
 
               <input
@@ -383,6 +433,7 @@ const FilePreview = (props) => {
                 placeholder="Write a comment"
                 id="writerCommentInput"
                 onKeyUp={(e) => setComment(e.target.value)}
+                onChange={(e) => setComment(e.target.value)}
                 name="writerComment"
                 required
               />
@@ -393,6 +444,7 @@ const FilePreview = (props) => {
                 onClick={(e) => {
                   e.preventDefault();
                   handleSubmit("Reviewed");
+                  props?.closePreview();
                 }}
               >
                 Save
@@ -401,6 +453,7 @@ const FilePreview = (props) => {
                 onClick={(e) => {
                   e.preventDefault();
                   handleSubmit("Accepted");
+                  props?.closePreview();
                 }}
               >
                 Accept
@@ -409,6 +462,7 @@ const FilePreview = (props) => {
                 onClick={(e) => {
                   e.preventDefault();
                   handleSubmit("Rejected");
+                  props?.closePreview();
                 }}
               >
                 Reject
@@ -416,7 +470,7 @@ const FilePreview = (props) => {
               <button
                 onClick={(e) => {
                   e.preventDefault();
-                  handleSubmit(getCookie("currentStatus"));
+                  handleReturn();
                   props?.closePreview();
                 }}
               >

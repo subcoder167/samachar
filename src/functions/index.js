@@ -19,6 +19,12 @@ export const generateObject = (formData) => {
 }
 
 
+export const generateFormData = (object) => {
+  const formData = new FormData();
+  Object.keys(object).forEach(key => formData.append(key, object[key]));
+  return formData;
+}
+
 export const getAuth = () => {
   return {
     token: localStorage.getItem('token'),

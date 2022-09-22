@@ -52,7 +52,7 @@ const Story = () => {
         //   //     : handlePriority(record, 0);
         //   // }}
         // />
-        Boolean(record.priority) ? (
+        record.priority === 1 ? (
           <button className="btn btn-success" disabled>
             <TiTick />
           </button>
@@ -222,6 +222,7 @@ const Story = () => {
   };
 
   const closePreview = () => {
+    dispatch(fetchStory());
     setPreviewOpen(false);
     preview.current.classList.remove("open");
   };
