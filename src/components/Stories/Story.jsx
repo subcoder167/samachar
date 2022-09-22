@@ -11,6 +11,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import FilePreview from "./FilePreview";
 import { fetchStory, uploadStory } from "../../redux/actions/story";
 import { generateArray, setCookie } from "../../functions";
+import { Status } from "../../constants/statusConstants";
 import "./Story.css";
 const Story = () => {
   const [trial, setTrial] = useState(false);
@@ -124,13 +125,7 @@ const Story = () => {
       width: "10px",
       // render: (text,record) =>{text.map((genre)=><span className="tablePill">genre</span>)}
       render: (text, record) => (
-        <span
-          className={
-            `tablePill statusPill` + text === "Under Review"
-              ? "InProcess"
-              : "Active"
-          }
-        >
+        <span className={`tablePill statusPill ` + text.replace(/\s/g, "")}>
           {text}
         </span>
       ),
@@ -266,8 +261,9 @@ const Story = () => {
     );
 
     delete temp_record.file;
-    if (!temp_record.status.includes(["Accepted", "Rejected"]))
-      temp_record.status = "InProcess";
+    if (temp_record.status != "Accepted" && temp_record.status != "Rejrcted") {
+      temp_record.status = "In Process";
+    }
     dispatch(uploadStory(temp_record));
     openPreview(RowIndex);
   };

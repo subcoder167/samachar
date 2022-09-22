@@ -30,9 +30,25 @@
     justify-content: center;
     align-items: center;
 }
-.Active
+.UnderReview {
+    background: rgb(184, 135, 13);
+    color: #fff;
+    padding: 6px 10px;
+    margin: 5px;
+    border-radius: 5px;
+
+}
+.Reviewed {
+    background: rgb(15, 137, 213);
+    color: #fff;
+    padding: 6px 10px;
+    margin: 5px;
+    border-radius: 5px;
+
+}
+.Accepted
 {
-    background: rgb(209, 140, 60) ;
+    background: rgb(17, 170, 81) !important;
     color:#fff;
     padding: 6px 10px;
         margin: 5px;
@@ -49,6 +65,6 @@
 }
 .Rejected
 {
-    background: rgb(250, 60, 60);    
+    background: rgb(250, 60, 60) !important;    
     color:#fff;
 }

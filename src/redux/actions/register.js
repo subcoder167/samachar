@@ -28,9 +28,15 @@ export const register = (formdata) => async (dispatch) => {
 
     console.log(JSON.stringify(response?.data));
 
-    dispatch({
-      type: ActionTypes.REGISTER_SUCCESS,
-    })
+    if (response?.data?.detail === "Email already have account associated. Kindly try forgot password")
+      dispatch({
+        type: ActionTypes.REGISTER_FAIL,
+        payload: "User already exists"
+      })
+    else if (response?.data?.detail === "Congrats, user has been created.")
+      dispatch({
+        type: ActionTypes.REGISTER_SUCCESS
+      })
 
 
   } catch (err) {

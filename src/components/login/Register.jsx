@@ -39,10 +39,14 @@ const Login = () => {
   useEffect(() => {
     setTrial(state?.trial);
     setErrMsg(state?.message);
-    // navigate('/dashboard',from, { replace: true });
+    if (errMsg === "User already exists" || errMsg === "User registered")
+      setTimeout(() => {
+        navigate("/login", from, { replace: true });
+      }, 1000);
 
     return () => {
       setTrial(false);
+      setErrMsg(null);
     };
   }, [state]);
 

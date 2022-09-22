@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link, useHistory, useParams } from "react-router-dom";
+import { Link, useHistory, useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import {
@@ -35,6 +35,7 @@ const Profile = () => {
   const last_name = useRef();
   const usernameIn = useRef();
   const submitBtn = useRef();
+  const navigate = useNavigate();
   useEffect(() => {
     handleProfileChange();
     setFirst(localStorage.getItem("first_name"));
@@ -59,6 +60,10 @@ const Profile = () => {
 
     let formData = new FormData(e.target);
     dispatch(updateProfile(formData));
+    if (error == "")
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
   };
   const handleProfileChange = (e) => {
     setError("");
@@ -139,7 +144,7 @@ const Profile = () => {
                   name="username"
                   placeholder="Enter your username"
                   ref={usernameIn}
-                  onChange={() => handleProfileChange()}
+                  disabled
                 />
               </div>
               {/* <div className="profileFormInputWrapper">
