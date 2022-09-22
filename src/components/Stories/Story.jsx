@@ -215,7 +215,7 @@ const Story = () => {
     setFileIndex(
       parseInt((paginateStatus.current - 1) * paginateStatus.pageSize + index)
     );
-    if()
+    // if()
     setPreviewOpen(true);
     preview.current.classList.add("open");
   };
