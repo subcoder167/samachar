@@ -170,8 +170,11 @@ const FilePreview = (props) => {
     temp_record.genre = genres?.map((genre) => genre?.value).toString();
     temp_record.geography = geography?.value;
     temp_record.status = state;
-    temp_record.priority = priority.value ? 1 : 0;
-
+    
+    if(state == "Accepted" || state  == "Rejected")
+      temp_record.priority = 0;
+    else
+      temp_record.priority = priority.value ? 1 : 0;
     if (JSON.stringify(temp_record.writer_comments) == "{}")
       temp_record.writer_comments = [
         {
