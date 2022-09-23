@@ -91,9 +91,12 @@ const Story = () => {
       render: (text, record) => (
         <div className="tablePillWrapper">
           {generateArray(text)?.map((genre) => (
-            <Tag className="tablePill" color="grey">
-              {genre}
-            </Tag>
+            // if(genre! == "")
+              <Tag className="tablePill" color="grey">
+                if(genre!= "")
+                {{genre}}
+              </Tag>
+            
           ))}
         </div>
       ),
