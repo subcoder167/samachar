@@ -234,7 +234,8 @@ const Story = () => {
         item?.last_name?.includes(value) ||
         item?.geography?.includes(value) ||
         generateArray(item?.genre)?.includes(value) ||
-        item?.language?.includes(value)
+        item?.language?.includes(value) ||
+        item?.title?.includes(value) 
     );
     if (searchArray.length > 0) {
       setData(searchArray);
@@ -282,7 +283,7 @@ const Story = () => {
           </button>
           <input
             type="text"
-            placeholder="Search for names, emails, numbers"
+            placeholder="Search for titles, genre, language or geography..."
             onChange={(e) => handleSearchChange(e)}
           />
         </form>
