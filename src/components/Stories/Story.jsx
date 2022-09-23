@@ -93,8 +93,8 @@ const Story = () => {
           {generateArray(text)?.map((genre) => (
             // if(genre! == "")
               <Tag className="tablePill" color="grey">
-                if(genre!= "")
-                {{genre}}
+                {/* if(genre!= "") */}
+                {genre}
               </Tag>
             
           ))}
