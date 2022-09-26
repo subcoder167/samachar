@@ -137,15 +137,16 @@ const Profile = () => {
                 <label className="profileFormInputLabel mobileLabel">
                   <AiOutlineMail />
                 </label>
-                <input
-                  type="text"
-                  className="profileFormInput"
-                  defaultValue={username}
-                  name="username"
-                  placeholder="Enter your username"
-                  ref={usernameIn}
-                  disabled
-                />
+                <span className = "profileFormInput">{username}<span/>
+//<input
+               //   type="text"
+              //    className="profileFormInput"
+               //   defaultValue={username}
+            //      name="username"
+            //      placeholder="Enter your username"
+               //   ref={usernameIn}
+            //      disabled
+          //      />
               </div>
               {/* <div className="profileFormInputWrapper">
                     <label className="profileFormInputLabel desktopLabel">password</label>
