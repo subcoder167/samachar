@@ -65,12 +65,12 @@ const Login = () => {
       >
         <div className="formInputWrapper">
           <div className="loginFormInput">
-            <label htmlFor="username">USERNAME</label>
+            <label htmlFor="username">EMAIL</label>
             <input
               ref={userRef}
               type="text"
               id="username"
-              placeholder="Enter your username"
+              placeholder="Enter your email"
               name="email"
               required
             />
