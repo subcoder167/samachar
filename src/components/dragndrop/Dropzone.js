@@ -50,7 +50,7 @@ function Dropzone({ onDrop, accept, open }) {
   return (
     <div>
       <div {...getRootProps({ className: "dropzone" })}>
-        <input className="input-zone" {...getInputProps()} accept="image/png" />
+        <input className="input-zone" {...getInputProps()} accept="application/pdf" />
         <div className="text-center">
           {isDragActive ? (
             <p className="dropzone-content">
