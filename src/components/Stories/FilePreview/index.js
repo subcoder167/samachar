@@ -264,7 +264,7 @@ const FilePreview = (props) => {
                 <strong>Genre:</strong> &nbsp;
                 <Select
                   options={genreOptions}
-                  onChange={(v) => (v.length < 3 ? setGenres(v) : null)}
+                  onChange={(v) => (v.length < 5 ? setGenres(v) : null)}
                   isMulti
                   // name="genre"
                   value={genres}
