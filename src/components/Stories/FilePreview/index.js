@@ -26,6 +26,18 @@ const FilePreview = (props) => {
           value: story[props?.index].genre.split(",")[1],
         }
       : null,
+    story[props?.index].genre.split(",")[2]
+      ? {
+          label: story[props?.index].genre.split(",")[2],
+          value: story[props?.index].genre.split(",")[2],
+        }
+      : null,
+    story[props?.index].genre.split(",")[3]
+      ? {
+          label: story[props?.index].genre.split(",")[3],
+          value: story[props?.index].genre.split(",")[3],
+        }
+      : null,
   ]);
   const [geography, setGeography] = useState({
     label: story[props?.index]?.geography,
@@ -145,7 +157,11 @@ const FilePreview = (props) => {
   // };
 
   useEffect(() => {
-    setFile(`https://docs.google.com/gview?url=https://sourrce.dojoapi.co.in/media/${story[props?.index]?.file}&embedded=true`);
+    setFile(
+      `https://docs.google.com/gview?url=https://sourrce.dojoapi.co.in/media/${
+        story[props?.index]?.file
+      }&embedded=true`
+    );
     setStoryState(story[props?.index]);
 
     if (state === Status.accepted || state === Status.rejected)
@@ -170,11 +186,9 @@ const FilePreview = (props) => {
     temp_record.genre = genres?.map((genre) => genre?.value).toString();
     temp_record.geography = geography?.value;
     temp_record.status = state;
-    
-    if(state == "Accepted" || state  == "Rejected")
-      temp_record.priority = 0;
-    else
-      temp_record.priority = priority.value ? 1 : 0;
+
+    if (state == "Accepted" || state == "Rejected") temp_record.priority = 0;
+    else temp_record.priority = priority.value ? 1 : 0;
     if (JSON.stringify(temp_record.writer_comments) == "{}")
       temp_record.writer_comments = [
         {
@@ -322,6 +336,7 @@ const FilePreview = (props) => {
                 /> */}
                 {story[props?.index]?.uploaded_at}
               </p>
+
               <p>
                 <strong>Comments:</strong>
               </p>

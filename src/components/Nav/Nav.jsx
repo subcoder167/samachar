@@ -116,7 +116,7 @@ const Nav = ({ role }) => {
               <></>
             )}
 
-            {generateArray(localStorage.getItem("roles"))?.find((r) =>
+            {/* {generateArray(localStorage.getItem("roles"))?.find((r) =>
               r.includes(ROLES.writer)
             ) ? (
               <>
@@ -126,7 +126,7 @@ const Nav = ({ role }) => {
               </>
             ) : (
               <></>
-            )}
+            )} */}
             {generateArray(localStorage.getItem("roles"))?.find((r) =>
               r.includes(ROLES.reviewer)
             ) ? (

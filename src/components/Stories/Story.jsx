@@ -92,11 +92,10 @@ const Story = () => {
         <div className="tablePillWrapper">
           {generateArray(text)?.map((genre) => (
             // if(genre! == "")
-              <Tag className="tablePill" color="grey">
-                {/* if(genre!= "") */}
-                {genre}
-              </Tag>
-            
+            <Tag className="tablePill" color="grey">
+              {/* if(genre!= "") */}
+              {genre}
+            </Tag>
           ))}
         </div>
       ),
@@ -238,7 +237,7 @@ const Story = () => {
         item?.geography?.includes(value) ||
         generateArray(item?.genre)?.includes(value) ||
         item?.language?.includes(value) ||
-        item?.title?.includes(value) 
+        item?.title?.includes(value)
     );
     if (searchArray.length > 0) {
       setData(searchArray);
@@ -265,13 +264,14 @@ const Story = () => {
           parseInt(
             (paginateStatus.current - 1) * paginateStatus.pageSize + RowIndex
           )
-        ].status
+        ]?.status
       )
     );
 
     delete temp_record.file;
-    if (temp_record.status !== "Accepted" || temp_record.status !== "Rejected")
+    if (temp_record.status !== "Accepted" && temp_record.status !== "Rejected")
       temp_record.status = "In Process";
+    else temp_record.status = temp_record.status;
     dispatch(uploadStory(temp_record));
     openPreview(RowIndex);
   };

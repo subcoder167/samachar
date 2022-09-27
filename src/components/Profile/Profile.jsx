@@ -16,7 +16,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Goback from "../goBack/Goback";
 import "./Profile.css";
 import { updateProfile } from "../../redux/actions/profile";
-import { generateRandomColor } from "../../functions";
+import { generateRandomColor, getAuth } from "../../functions";
 
 const Profile = () => {
   const [password, setPassword] = useState(true);
@@ -48,11 +48,7 @@ const Profile = () => {
 
   const handleProfileSubmit = (e) => {
     e.preventDefault();
-    if (
-      first_name.current.value == "" ||
-      last_name.current.value == "" ||
-      usernameIn.current.value == ""
-    ) {
+    if (first_name.current.value == "" || last_name.current.value == "") {
       setError("Please donot keep any empty value");
       return;
     }
@@ -60,18 +56,17 @@ const Profile = () => {
 
     let formData = new FormData(e.target);
     dispatch(updateProfile(formData));
+    localStorage.setItem("first_name", first_name.current.value);
+    localStorage.setItem("last_name", last_name.current.value);
     if (error == "")
       setTimeout(() => {
-        window.location.reload();
+        if (getAuth().roles == "scout") navigate("/dashboard/upload");
+        else navigate("/dashboard/stories");
       }, 1000);
   };
   const handleProfileChange = (e) => {
     setError("");
-    if (
-      first_name.current.value == first &&
-      last_name.current.value == last &&
-      usernameIn.current.value == username
-    ) {
+    if (first_name.current.value == first && last_name.current.value == last) {
       submitBtn.current.disabled = true;
     } else {
       submitBtn.current.disabled = false;
@@ -137,16 +132,7 @@ const Profile = () => {
                 <label className="profileFormInputLabel mobileLabel">
                   <AiOutlineMail />
                 </label>
-                <span className = "profileFormInput">{username}<span/>
-//<input
-               //   type="text"
-              //    className="profileFormInput"
-               //   defaultValue={username}
-            //      name="username"
-            //      placeholder="Enter your username"
-               //   ref={usernameIn}
-            //      disabled
-          //      />
+                <span className="profileFormInput">{username}</span>
               </div>
               {/* <div className="profileFormInputWrapper">
                     <label className="profileFormInputLabel desktopLabel">password</label>
