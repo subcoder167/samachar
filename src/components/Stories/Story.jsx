@@ -313,8 +313,7 @@ const Story = () => {
               onChange={(pagination) => setPaginateStatus(pagination)}
               sticky
               rowClassName={(record) =>
-                (record.status == "refused" || record.status == "verified") &&
-                "disabled-row"
+                record.status == "In Process" && "disabled-row"
               }
               onRow={(record, rowIndex) => {
                 return {

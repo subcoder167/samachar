@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Select from "react-select";
 import moment from "moment/moment";
 import { useSelector, useDispatch } from "react-redux";
-import { eraseCookie, getCookie } from "../../../functions";
+import { eraseCookie, generateArray, getCookie } from "../../../functions";
 import { uploadStory } from "../../../redux/actions/story";
 import { Status } from "../../../constants/statusConstants";
 
@@ -223,6 +223,11 @@ const FilePreview = (props) => {
     console.log(temp_record.status);
     dispatch(uploadStory(JSON.stringify(temp_record)));
   };
+  window.addEventListener("beforeunload", function (e) {
+    e.preventDefault();
+    e.returnValue = "";
+    handleReturn();
+  });
 
   return (
     <div className="previewWrapper">
@@ -303,6 +308,7 @@ const FilePreview = (props) => {
                   required
                 />
               </p>
+
               <p>
                 <strong>Priority:</strong> &nbsp;
                 <Select
@@ -320,6 +326,26 @@ const FilePreview = (props) => {
                   required
                 />
               </p>
+
+              <p>
+                <strong>References:</strong> &nbsp;
+                <ul>
+                  {generateArray(story[props?.index]?.referrence_fields).map(
+                    (reference) => (
+                      <li>
+                        <a
+                          href={reference}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {reference}
+                        </a>
+                      </li>
+                    )
+                  )}
+                </ul>
+              </p>
+
               <p>
                 <strong>Scout Comment:</strong> &nbsp;
                 {story[props?.index]?.scout_comment}
